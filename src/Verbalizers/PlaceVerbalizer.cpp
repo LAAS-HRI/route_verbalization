@@ -128,19 +128,47 @@ std::string PlaceVerbalizer::getDirectionCorridor(std::string& from, corridor_t&
   {
     if((from_index = getIndex(corridor.at_begin_edge_, from)) >= 0)
     {
-
+      if(isBefore(corridor.at_begin_edge_, from, to_index))
+        res = "at your right";
+      else
+        res = "at your left";
     }
     else
-      res = "at the end of the corridor";
+      res = "at the end of the corridor";  //turn R, L or in front ??
   }
   else if((to_index = getIndex(corridor.at_end_edge_, to)) >= 0)
   {
-    if((to_index = getIndex(corridor.at_begin_edge_, to)) >= 0)
+    if((from_index = getIndex(corridor.at_end_edge_, from)) >= 0)
     {
-
+      if(isBefore(corridor.at_begin_edge_, from, to_index))
+        res = "at your right";
+      else
+        res = "at your left";
     }
     else
-      res = "at the end of the corridor";
+      res = "at the end of the corridor"; //turn R, L or in front ??
+  }
+  else if((to_index = getIndex(corridor.at_right_, to)) >= 0)
+  {
+    if((from_index = getIndex(corridor.at_right_, from)) >= 0)
+    {
+      if(isBefore(corridor.at_right_, from, to_index))
+        res = "turn at right and it will be at your right";
+      else
+        res = "turn at left and it will be at your left";
+    }
+    // else => to find
+  }
+  else if((to_index = getIndex(corridor.at_left_, to)) >= 0)
+  {
+    if((from_index = getIndex(corridor.at_left_, from)) >= 0)
+    {
+      if(isBefore(corridor.at_left_, from, to_index))
+        res = "turn at right and it will be at your right";
+      else
+        res = "turn at left and it will be at your left";
+    }
+    // else => to find
   }
 
   return res;
@@ -228,4 +256,12 @@ int PlaceVerbalizer::getIndex(std::vector<std::string>& vect, std::string& word)
       break;
     }
   return index;
+}
+
+bool PlaceVerbalizer::isBefore(std::vector<std::string>& vect, std::string& word, size_t index)
+{
+  for(size_t i = 0; i < index; i++)
+    if(vect[i] == word)
+      return true;
+  return false;
 }

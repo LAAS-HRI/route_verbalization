@@ -35,6 +35,7 @@ private:
   std::string getDirectionRegion(std::string& from, std::string& region_name, std::string& to);
 
   int getIndex(std::vector<std::string>& vect, std::string& word);
+  bool isBefore(std::vector<std::string>& vect, std::string& word, size_t index);
 };
 
 #endif
