@@ -14,7 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   semantic_route_description
 )
-find_package(ontologenius 0.1.1 REQUIRED)
+find_package(ontologenius 0.1.3 REQUIRED)
 find_package(OpenCV REQUIRED)
 
 ## System dependencies are found with CMake's conventions
@@ -62,11 +62,11 @@ include_directories(
  include
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
+  ${ontoloGenius_lib_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 add_library(route_verbalization_lib
-  src/OntologyManipulator.cpp
   src/mapManipulators/MapReader.cpp
   src/mapManipulators/MapDrawer.cpp
   src/Verbalizers/RegionVerbalizer.cpp
@@ -75,6 +75,7 @@ add_library(route_verbalization_lib
  target_link_libraries(route_verbalization_lib ${catkin_LIBRARIES})
  add_dependencies(route_verbalization_lib ${catkin_EXPORTED_TARGETS})
  target_link_libraries(route_verbalization_lib ${OpenCV_LIBS})
+ target_link_libraries(route_verbalization_lib ontoloGenius_lib)
 
 add_executable(draw_route nodes/draw.cpp)
 target_link_libraries(draw_route ${catkin_LIBRARIES})

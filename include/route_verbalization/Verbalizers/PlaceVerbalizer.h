@@ -1,7 +1,7 @@
 #ifndef PLACEVERBALIZER_H
 #define PLACEVERBALIZER_H
 
-#include "route_verbalization/OntologyManipulator.h"
+#include "ontoloGenius/utility/OntologyManipulator.h"
 #include "route_verbalization/mapManipulators/MapReader.h"
 
 #include <ros/ros.h>

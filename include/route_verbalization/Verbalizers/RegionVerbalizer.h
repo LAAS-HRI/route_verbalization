@@ -1,7 +1,7 @@
 #ifndef REGIONVERBALIZER_H
 #define REGIONVERBALIZER_H
 
-#include "route_verbalization/OntologyManipulator.h"
+#include "ontoloGenius/utility/OntologyManipulator.h"
 
 #include <string>
 #include <map>

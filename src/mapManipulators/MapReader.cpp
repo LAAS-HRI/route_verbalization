@@ -24,7 +24,7 @@ void MapReader::getMap()
 
 void MapReader::getCorridors()
 {
-  std::vector<std::string> corridors = onto_.getType("corridor");
+  std::vector<std::string> corridors = onto_.individuals.getType("corridor");
   for(size_t i = 0; i < corridors.size(); i++)
   {
     corridor_t tmp;
@@ -37,7 +37,7 @@ void MapReader::getInFrontOf(corridor_t& corridor)
 {
   for(size_t place_i = 0; place_i < corridor.at_right_.size(); place_i++)
   {
-    std::vector<std::string> front = onto_.getOn(corridor.at_right_[place_i], "hasInFront");
+    std::vector<std::string> front = onto_.individuals.getOn(corridor.at_right_[place_i], "hasInFront");
     for(size_t i = 0; i < front.size(); i++)
     {
       std::vector<std::string>::iterator it = std::find(corridor.at_left_.begin(), corridor.at_left_.end(), front[i]);
@@ -60,7 +60,7 @@ void MapReader::getSides(corridor_t& corridor)
 
 std::vector<std::string> MapReader::getSide(std::string corridor, std::string property)
 {
-  std::vector<std::string> places = onto_.getFrom(property, corridor);
+  std::vector<std::string> places = onto_.individuals.getFrom(property, corridor);
 
   if((property == "isAtLeftOfPath") || (property == "isAtEndEdgeOfPath"))
     return orderPlaces(places, true);
@@ -79,7 +79,7 @@ void MapReader::displayCorridor(corridor_t corridor)
 
 void MapReader::getOpenspaces()
 {
-  std::vector<std::string> elements = onto_.getType("openspace");
+  std::vector<std::string> elements = onto_.individuals.getType("openspace");
   for(size_t i = 0; i < elements.size(); i++)
   {
     openspace_t tmp;
@@ -92,7 +92,7 @@ void MapReader::getInFrontOf(openspace_t& openspace)
 {
   for(size_t place_i = 0; place_i < openspace.around_.size(); place_i++)
   {
-    std::vector<std::string> front = onto_.getOn(openspace.around_[place_i], "hasInFront");
+    std::vector<std::string> front = onto_.individuals.getOn(openspace.around_[place_i], "hasInFront");
     for(size_t i = 0; i < front.size(); i++)
     {
       std::vector<std::string>::iterator it = std::find(openspace.around_.begin(), openspace.around_.end(), front[i]);
@@ -107,7 +107,7 @@ void MapReader::getInFrontOf(openspace_t& openspace)
 
 void MapReader::getAround(openspace_t& openspace)
 {
-  std::vector<std::string> places = onto_.getFrom("isAlong", openspace.name_);
+  std::vector<std::string> places = onto_.individuals.getFrom("isAlong", openspace.name_);
   openspace.around_ = orderPlaces(places, true);
 }
 
@@ -126,7 +126,7 @@ std::vector<std::string> MapReader::orderPlaces(std::vector<std::string> base, b
   for(size_t timeout = 0; (timeout < max_time) && (base.size() != 0); timeout++)
     for(size_t i = 0; i < base.size();)
     {
-      std::vector<std::string> atLeft = onto_.getOn(base[i], "isAtRightOf");
+      std::vector<std::string> atLeft = onto_.individuals.getOn(base[i], "isAtRightOf");
 
       if((atLeft.size() == 0) || ((timeout == 1) && (base.size() == along.size())))
       {

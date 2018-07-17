@@ -27,10 +27,10 @@ bool PlaceVerbalizer::verbalizePlaceRoute(std::vector<std::string> route, std::s
   {
     if(route.size() > 1)
     {
-      std::vector<std::string> from_type = onto_->getUp(start_place);
+      std::vector<std::string> from_type = onto_->individuals.getUp(start_place);
       if(std::find(from_type.begin(), from_type.end(), "infodesk") == from_type.end())
       {
-        text += "from " + onto_->getName(start_place) + " ";
+        text += "from " + onto_->individuals.getName(start_place) + " ";
         //ground
       }
 
@@ -44,7 +44,7 @@ bool PlaceVerbalizer::verbalizePlaceRoute(std::vector<std::string> route, std::s
         if(i + 2 >= route.size()) // goal shop
         {
           text += "to get to ";
-          text += onto_->getName(route[i + 1]) + " ";
+          text += onto_->individuals.getName(route[i + 1]) + " ";
         }
         else
         {
@@ -83,9 +83,9 @@ bool PlaceVerbalizer::verbalizePlaceRoute(std::vector<std::string> route, std::s
 
 std::string PlaceVerbalizer::getDirection(std::string& from, std::string& path, std::string& to)
 {
-  if(onto_->getUp(path, -1, "path").size())
+  if(onto_->individuals.getUp(path, -1, "path").size())
     return getDirectionPath(from, path, to);
-  else if(onto_->getUp(path, -1, "region").size())
+  else if(onto_->individuals.getUp(path, -1, "region").size())
     return getDirectionRegion(from, path, to);
   else
     return "";
@@ -93,9 +93,9 @@ std::string PlaceVerbalizer::getDirection(std::string& from, std::string& path, 
 
 std::string PlaceVerbalizer::getDirectionPath(std::string& from, std::string& path, std::string& to)
 {
-  if(onto_->getUp(path, -1, "corridor").size())
+  if(onto_->individuals.getUp(path, -1, "corridor").size())
     return getDirectionCorridor(from, path, to);
-  else if(onto_->getUp(path, -1, "openspace").size())
+  else if(onto_->individuals.getUp(path, -1, "openspace").size())
     return getDirectionOpenspace(from, path, to);
   else
     return "";
@@ -232,7 +232,7 @@ std::string PlaceVerbalizer::getDirectionOpenspace(std::string& from, openspace_
       {
         int to_index = getIndex(openspace.around_, to);
         if(to_index >= 0)
-          res = "that is next to the " + onto_->getName(openspace.around_[(to_index + 1) % openspace.around_.size()]);
+          res = "that is next to the " + onto_->individuals.getName(openspace.around_[(to_index + 1) % openspace.around_.size()]);
       }
     }
   }

@@ -2,7 +2,7 @@
 #define VERBALIZER_H
 
 #include <ros/ros.h>
-#include "route_verbalization/OntologyManipulator.h"
+#include "ontoloGenius/utility/OntologyManipulator.h"
 
 #include "route_verbalization/Verbalizers/RegionVerbalizer.h"
 #include "route_verbalization/Verbalizers/PlaceVerbalizer.h"
