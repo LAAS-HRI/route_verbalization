@@ -23,6 +23,7 @@ void PlaceVerbalizer::init(ros::NodeHandle* n)
 
 bool PlaceVerbalizer::verbalizePlaceRoute(std::vector<std::string> route, std::string start_place, std::string goal_shop, std::string& text)
 {
+  std::cout << "*******************" << std::endl;
   if(route.size() != 0)
   {
     if(route.size() > 1)
@@ -33,8 +34,10 @@ bool PlaceVerbalizer::verbalizePlaceRoute(std::vector<std::string> route, std::s
       {
         text += "from " + onto_->individuals.getName(start_place) + " ";
         //ground
-        start_index = 3;
+        start_index = 1;
       }
+      else
+        start_index = 3;
 
       for(size_t i = start_index; i < route.size(); i = i + 2)
       {
@@ -126,7 +129,7 @@ std::string PlaceVerbalizer::getDirectionCorridor(std::string& from, corridor_t&
   std::string res = "none";
 
   int from_index, to_index = -1;
-  if((to_index = getIndex(corridor.at_begin_edge_, to)) >= 0)
+  if((to_index = getIndex(corridor.at_begin_edge_, to)) >= 0) //next goal at begin_edge
   {
     if((from_index = getIndex(corridor.at_begin_edge_, from)) >= 0)
     {
@@ -142,7 +145,7 @@ std::string PlaceVerbalizer::getDirectionCorridor(std::string& from, corridor_t&
     else
       res = "at the end of the corridor";
   }
-  else if((to_index = getIndex(corridor.at_end_edge_, to)) >= 0)
+  else if((to_index = getIndex(corridor.at_end_edge_, to)) >= 0) //next goal at end_edge
   {
     if((from_index = getIndex(corridor.at_end_edge_, from)) >= 0)
     {
@@ -158,7 +161,7 @@ std::string PlaceVerbalizer::getDirectionCorridor(std::string& from, corridor_t&
     else
       res = "at the end of the corridor";
   }
-  else if((to_index = getIndex(corridor.at_right_, to)) >= 0)
+  else if((to_index = getIndex(corridor.at_right_, to)) >= 0) //next goal at right
   {
     if((from_index = getIndex(corridor.at_right_, from)) >= 0)
     {
@@ -167,9 +170,26 @@ std::string PlaceVerbalizer::getDirectionCorridor(std::string& from, corridor_t&
       else
         res = "turn at left and it will be at your left";
     }
-    // else => to find
+    else if((from_index = getIndex(corridor.at_end_edge_, from)) >= 0)
+      res = "at your left";
+    else if((from_index = getIndex(corridor.at_begin_edge_, from)) >= 0)
+      res = "at your right";
+    else // from at left
+    {
+      if(corridor.in_front_of_.find(from) != corridor.in_front_of_.end())
+      {
+        if(corridor.in_front_of_[from] == to)
+          res = "in front of you";
+        else if(getIndex(corridor.at_left_, corridor.in_front_of_[from]) > getIndex(corridor.at_left_, to))
+          res = "turn right and it will be at your left";
+        else
+          res = "turn left and it will be at your right";
+      }
+      else
+        std::cout << "Your programmer is bugging ..." << std::endl; //TODO
+    }
   }
-  else if((to_index = getIndex(corridor.at_left_, to)) >= 0)
+  else if((to_index = getIndex(corridor.at_left_, to)) >= 0) //next goal at left
   {
     if((from_index = getIndex(corridor.at_left_, from)) >= 0)
     {
@@ -178,7 +198,24 @@ std::string PlaceVerbalizer::getDirectionCorridor(std::string& from, corridor_t&
       else
         res = "turn at left and it will be at your left";
     }
-    // else => to find
+    else if((from_index = getIndex(corridor.at_end_edge_, from)) >= 0)
+      res = "at your right";
+    else if((from_index = getIndex(corridor.at_begin_edge_, from)) >= 0)
+      res = "at your left";
+    else // from at left
+    {
+      if(corridor.in_front_of_.find(from) != corridor.in_front_of_.end())
+      {
+        if(corridor.in_front_of_[from] == to)
+          res = "in front of you";
+        else if(getIndex(corridor.at_left_, corridor.in_front_of_[from]) > getIndex(corridor.at_left_, to))
+          res = "turn right and it will be at your left";
+        else
+          res = "turn left and it will be at your right";
+      }
+      else
+        std::cout << "Your programmer is bugging ..." << std::endl; //TODO
+    }
   }
 
   return res;
