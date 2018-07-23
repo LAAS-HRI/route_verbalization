@@ -28,7 +28,7 @@ struct openspace_t
 class MapReader
 {
 public:
-  MapReader(ros::NodeHandle* n) : onto_(n) { n_ = n; }
+  MapReader(ros::NodeHandle* n) : onto_(n) { n_ = n; onto_.close(); }
   ~MapReader() {}
 
   void getMap();

@@ -9,7 +9,6 @@
 
 ros::NodeHandle* n_;
 
-
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "semantic_route_drawer");

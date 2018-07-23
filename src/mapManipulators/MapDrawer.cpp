@@ -197,7 +197,10 @@ void MapDrawer::drawOneCorridor(corridor_t corridor)
     set_rect(to_draw.at_end_edge_rects_[end_i], to_draw.at_end_edge_names_[end_i]);
 
   if(nb_places != 0)
+  {
     cvSaveImage(std::string(corridor.name_ + ".png").c_str(), image);
+    std::cout << "SAVE : " << corridor.name_ << ".png" << std::endl;
+  }
 }
 
 void MapDrawer::set_rect(rect_t rect, std::string name)
