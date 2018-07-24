@@ -7,6 +7,7 @@ Sentences::Sentences(OntologyManipulator* onto) : onto_(onto)
   createEnd();
   createBegin();
   createDuring();
+  createPunctuation();
 
   interface_map["elevator"] = "take the ";
   interface_map["stair"] = "take the ";
@@ -17,7 +18,7 @@ void Sentences::createEnd()
 {
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", ", "}, {"you will "}, {"see ", "find "},
+      {{"and ", "then ", ", ", ". After that ", ". Finally, "}, {"you will "}, {"see ", "find "},
       {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
       {"side ", "when you walk ", ""}});
     end_.push_back(tmp);
@@ -25,50 +26,50 @@ void Sentences::createEnd()
 
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", "it's then ", "then "}, {"on "}, {"the ", "your "},
+      {{"and ", "then ", "it's then ", ". After that, "}, {"on "}, {"the ", "your "},
       {"/D "}, {"side ", "when you walk", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then ", ", "}, {"it will be on your "}, {"/D "}});
+      {{"then ", ", ", ". After that, ", "and ", ". Finally, "}, {"it will be on your "}, {"/D "}, {"side ", "when you walk", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then ", ", "}, {"it's on the "}, {"/D "}, {"there "}});
+      {{"then ", ". After that, ", "and ", ". Finally, "}, {"it's on the "}, {"/D "}, {"there "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", ", "}, {"on the "}, {"/D "}, {"you will see "}, {"/X "}});
+      {{"then ", ". After that, ", "and ", ". Finally, "}, {"on the "}, {"/D "}, {"you will see "}, {"/X "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"and ", "then ", ", "}, {"you see there "}, {"/X "}});
+      {{"then ", ". After that, ", "and ", ". Finally, "}, {"you see there "}, {"/X "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"and ", "then ", ", "}, {"you will find it there "}});
+      {{"then ", ". After that, ", "and ", ". Finally, "}, {"you will find it there "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"and ", "then ", ", "}, {"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
+      {{"then ", ". After that, ", "and ", ". Finally, "}, {"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_in_front,
-      {{"and ", "then ", ", "}, {"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
+      {{"then ", ". After that, ", "and ", ". Finally, "}, {"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
     end_.push_back(tmp);
   }
 }
@@ -78,13 +79,13 @@ void Sentences::createBegin()
   {
     sentence_t tmp(start_corridor,
       {{"just ", "you "}, {"go ", "walk ", "go straight "},
-      {"across ", "through ", "on ", "down "}, {"that ", "this "}, {"corridor ", "aisle "}});
+      {"across ", "through ", "on ", "down "}, {"that ", "this "}, {"corridor ", "aisle "}, {". ", ", ", "then ", "and then "}});
     begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(start_corridor,
-      {{"you go to this "}, {"corridor ", "aisle "}});
+      {{"you go to this "}, {"corridor ", "aisle "}, {", ", "then "}});
     begin_.push_back(tmp);
   }
 
@@ -108,7 +109,7 @@ void Sentences::createBegin()
 
   {
     sentence_t tmp(start_interface,
-      {{"/I "}});
+      {{"/I "}, {". ", ", ", "then ", "and then "}});
     begin_.push_back(tmp);
   }
 }
@@ -168,6 +169,20 @@ void Sentences::createDuring()
       {{"/I "}, {"that it's "}, {"ont he /DY side of ", "next to ", "at /DY of "}, {"/Y "}});
     during_.push_back(tmp);
   }
+}
+
+void Sentences::createPunctuation()
+{
+  {
+    sentence_t tmp(punctuation,
+      {{", ", "and ", ", and then ", ", then ", ". Then, ", ". "}});
+    punctuation_.push_back(tmp);
+  }
+}
+
+std::string Sentences::getPunctuation()
+{
+  return selectOne(punctuation_);
 }
 
 std::string Sentences::createInterfaceSentence(std::string word)

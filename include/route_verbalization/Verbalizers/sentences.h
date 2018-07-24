@@ -19,6 +19,7 @@ enum sentences_type
   during_reference,
   during_interface_font,
   during_interface_side,
+  punctuation,
   none_type
 };
 
@@ -90,17 +91,20 @@ public:
   Sentences(OntologyManipulator* onto);
 
   std::string getSentence(sentence_req_t req);
+  std::string getPunctuation();
 
 private:
   OntologyManipulator* onto_;
   std::vector<sentence_t> end_;
   std::vector<sentence_t> begin_;
   std::vector<sentence_t> during_;
+  std::vector<sentence_t> punctuation_;
   std::map<std::string, std::string> interface_map;
 
   void createEnd();
   void createBegin();
   void createDuring();
+  void createPunctuation();
 
   std::string createInterfaceSentence(std::string word);
 
