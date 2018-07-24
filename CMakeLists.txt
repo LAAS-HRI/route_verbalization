@@ -71,6 +71,7 @@ add_library(route_verbalization_lib
   src/mapManipulators/MapDrawer.cpp
   src/Verbalizers/RegionVerbalizer.cpp
   src/Verbalizers/PlaceVerbalizer.cpp
+  src/Verbalizers/sentences.cpp
 )
  target_link_libraries(route_verbalization_lib ${catkin_LIBRARIES})
  add_dependencies(route_verbalization_lib ${catkin_EXPORTED_TARGETS})
