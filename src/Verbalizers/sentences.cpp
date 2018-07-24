@@ -1,5 +1,6 @@
 #include "route_verbalization/Verbalizers/sentences.h"
 #include <random>
+#include <iostream>
 
 Sentences::Sentences(OntologyManipulator* onto) : onto_(onto)
 {
@@ -16,7 +17,7 @@ void Sentences::createEnd()
 {
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", ", "}, {"you'll "}, {"see ", "find "},
+      {{"and ", "then ", ", "}, {"you will "}, {"see ", "find "},
       {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
       {"side ", "when you walk ", ""}});
     end_.push_back(tmp);
@@ -24,7 +25,7 @@ void Sentences::createEnd()
 
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", "it's then ", "then ", ", "}, {"on "}, {"the ", "your "},
+      {{"and ", "then ", "it's then ", "then "}, {"on "}, {"the ", "your "},
       {"/D "}, {"side ", "when you walk", ""}});
     end_.push_back(tmp);
   }
@@ -43,7 +44,7 @@ void Sentences::createEnd()
 
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", ", "}, {"on the "}, {"/D "}, {"you'll see "}, {"/X "}});
+      {{"and ", "then ", ", "}, {"on the "}, {"/D "}, {"you will see "}, {"/X "}});
     end_.push_back(tmp);
   }
 
@@ -55,19 +56,19 @@ void Sentences::createEnd()
 
   {
     sentence_t tmp(end_here,
-      {{"and ", "then ", ", "}, {"you'll find it there "}});
+      {{"and ", "then ", ", "}, {"you will find it there "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"and ", "then ", ", "}, {"it's "}, {"there ", ""}, {"on the "}, {"/D "}, {"side of "}, {"/Y "}});
+      {{"and ", "then ", ", "}, {"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_in_front,
-      {{"and ", "then ", ", "}, {"you'll "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
+      {{"and ", "then ", ", "}, {"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
     end_.push_back(tmp);
   }
 }
@@ -104,6 +105,12 @@ void Sentences::createBegin()
       {{"/X "}, {"is at the end of "}, {"this ", "that "}, {"corridor ", "aisle "}});
     begin_.push_back(tmp);
   }
+
+  {
+    sentence_t tmp(start_interface,
+      {{"/I "}});
+    begin_.push_back(tmp);
+  }
 }
 
 void Sentences::createDuring()
@@ -121,20 +128,26 @@ void Sentences::createDuring()
   }
 
   {
-    sentence_t tmp(during_turn,
-      {{"turn "}, {"/D "}, {"end you will see /Y ", ""}});
+    sentence_t tmp(during_turn_continu_corridor,
+      {{"turn "}, {"/D "}, {"and you will see /Y ", ""}});
     during_.push_back(tmp);
   }
 
   {
     sentence_t tmp(during_turn,
-      {{"you'll "}, {"see ", "find "}, {"/Y "}, {"turning right to the "}, {"/D "}});
+      {{"turn "}, {"/D "}, {"and you will see /Y ", ""}});
+    during_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(during_turn,
+      {{"you will "}, {"see ", "find "}, {"/Y "}, {"turning right to the "}, {"/D "}});
     during_.push_back(tmp);
   }
 
   {
     sentence_t tmp(during_reference,
-      {{"you'll "}, {"see ", "find "}, {"/Y "}});
+      {{"you will "}, {"see ", "find "}, {"/Y "}});
     during_.push_back(tmp);
   }
 
@@ -172,7 +185,7 @@ std::string Sentences::createInterfaceSentence(std::string word)
   if(interface_name == "")
     interface_name = onto_->individuals.getName(word);
 
-  return verb + interface_name + " ";
+  return verb + interface_name;
 }
 
 std::string Sentences::getSentence(sentence_req_t req)
@@ -188,7 +201,7 @@ std::string Sentences::getSentence(sentence_req_t req)
 std::string Sentences::getSentence(sentence_req_t& req, std::vector<sentence_t>& base)
 {
   std::string res;
-  size_t timeout = 10;
+  size_t timeout = 30;
   do
   {
     std::vector<sentence_t> sentences_base;
@@ -196,7 +209,13 @@ std::string Sentences::getSentence(sentence_req_t& req, std::vector<sentence_t>&
     res = selectOne(sentences_base);
     timeout--;
   }
-  while((replace(res, req) == false) && (timeout > 0));
+  while((replace(res, req) == false) && (timeout != 0));
+
+  if(timeout == 0)
+  {
+    std::cout << res << std::endl;
+    res = "";
+  }
 
   return res;
 }
@@ -243,14 +262,17 @@ std::string Sentences::selectOne(std::vector<sentence_t>& sentences)
 
 bool Sentences::replace(std::string& text, sentence_req_t& req)
 {
+  std::string left_str = "left";
+  std::string right_str = "right";
+
   size_t pose = std::string::npos;
   while((pose = text.find("/D")) != std::string::npos)
   {
     if(req.side_ != none_side)
-      if(req.side_ != right)
-        text.replace(pose, pose + 2, "right");
+      if(req.side_ == right)
+        text.replace(text.begin() + pose, text.begin() + pose + 2, right_str);
       else
-        text.replace(pose, pose + 2, "left");
+        text.replace(text.begin() + pose, text.begin() + pose + 2, left_str);
     else
       return false;
   }
@@ -258,10 +280,10 @@ bool Sentences::replace(std::string& text, sentence_req_t& req)
   while((pose = text.find("/DY")) != std::string::npos)
   {
     if(req.refrence_side_ != none_side)
-      if(req.refrence_side_ != right)
-        text.replace(pose, pose + 3, "right");
+      if(req.refrence_side_ == right)
+        text.replace(text.begin() + pose, text.begin() + pose + 3, right_str);
       else
-        text.replace(pose, pose + 3, "left");
+        text.replace(text.begin() + pose, text.begin() + pose + 3, left_str);
     else
       return false;
   }
@@ -271,7 +293,7 @@ bool Sentences::replace(std::string& text, sentence_req_t& req)
     if(req.place_ != "")
     {
       std::string name = onto_->individuals.getName(req.place_);
-      text.replace(pose, pose + 2, name);
+      text.replace(text.begin() + pose, text.begin() + pose + 2, name);
     }
     else
       return false;
@@ -282,10 +304,15 @@ bool Sentences::replace(std::string& text, sentence_req_t& req)
     if(req.reference_ != "")
     {
       std::string name = onto_->individuals.getName(req.reference_);
-      text.replace(pose, pose + 2, name);
+      text.replace(text.begin() + pose, text.begin() + pose + 2, name);
     }
     else
       return false;
+  }
+
+  while((pose = text.find("/I")) != std::string::npos)
+  {
+    text.replace(text.begin() + pose, text.begin() + pose + 2, createInterfaceSentence(req.place_));
   }
 
   return true;

@@ -73,6 +73,15 @@ struct sentence_req_t
     reference_ = reference;
     refrence_side_ = refrence_side;
   }
+  sentence_req_t(std::string place, side_t side = none_side, std::string reference = "", side_t refrence_side = none_side)
+  {
+    type_ = none_type;
+    place_ = place;
+    side_ = side;
+    reference_ = reference;
+    refrence_side_ = refrence_side;
+  }
+  sentence_req_t() {type_ = none_type;}
 };
 
 class Sentences
