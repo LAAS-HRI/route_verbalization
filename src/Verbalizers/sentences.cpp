@@ -5,6 +5,7 @@
 Sentences::Sentences(OntologyManipulator* onto) : onto_(onto)
 {
   createEnd();
+  createEndBegin();
   createBegin();
   createDuring();
   createPunctuation();
@@ -71,6 +72,59 @@ void Sentences::createEnd()
     sentence_t tmp(end_in_front,
       {{"then ", ". After that, ", "and ", ". Finally, "}, {"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
     end_.push_back(tmp);
+  }
+}
+
+void Sentences::createEndBegin()
+{
+  {
+    sentence_t tmp(end_side,
+      {{"you will "}, {"see ", "find "},
+      {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
+      {"side ", "when you walk ", ""}});
+    end_begin_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(end_side,
+      {{"it will be on your "}, {"/D "}, {"side ", "when you walk", ""}});
+    end_begin_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(end_side,
+      {{"it's on the "}, {"/D "}, {"there "}});
+    end_begin_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(end_side,
+      {{"on the "}, {"/D "}, {"you will see "}, {"/X "}});
+    end_begin_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(end_here,
+      {{"you see there "}, {"/X "}});
+    end_begin_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(end_here,
+      {{"you will find it there "}});
+    end_begin_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(end_here,
+      {{"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
+    end_begin_.push_back(tmp);
+  }
+
+  {
+    sentence_t tmp(end_in_front,
+      {{"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
+    end_begin_.push_back(tmp);
   }
 }
 
@@ -203,10 +257,13 @@ std::string Sentences::createInterfaceSentence(std::string word)
   return verb + interface_name;
 }
 
-std::string Sentences::getSentence(sentence_req_t req)
+std::string Sentences::getSentence(sentence_req_t req, bool begin)
 {
   if((req.type_ == end_side) || (req.type_ == end_here) || (req.type_ == end_in_front))
-    return getSentence(req, end_);
+    if(begin == false)
+      return getSentence(req, end_);
+    else
+      return getSentence(req, end_begin_);
   else if((req.type_ == start_corridor) || (req.type_ == start_end_of_corridor) || (req.type_ == start_interface))
     return getSentence(req, begin_);
   else

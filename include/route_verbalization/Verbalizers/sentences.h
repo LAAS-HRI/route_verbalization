@@ -90,18 +90,20 @@ class Sentences
 public:
   Sentences(OntologyManipulator* onto);
 
-  std::string getSentence(sentence_req_t req);
+  std::string getSentence(sentence_req_t req, bool begin = false);
   std::string getPunctuation();
 
 private:
   OntologyManipulator* onto_;
   std::vector<sentence_t> end_;
+  std::vector<sentence_t> end_begin_;
   std::vector<sentence_t> begin_;
   std::vector<sentence_t> during_;
   std::vector<sentence_t> punctuation_;
   std::map<std::string, std::string> interface_map;
 
   void createEnd();
+  void createEndBegin();
   void createBegin();
   void createDuring();
   void createPunctuation();
