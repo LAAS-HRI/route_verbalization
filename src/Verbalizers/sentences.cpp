@@ -172,7 +172,7 @@ void Sentences::createDuring()
 {
   {
     sentence_t tmp(during_end_of_corridor,
-      {{"you walk to ", "almost at ", "walk until "}, {"the "}, {"very ", ""}, {"end "}});
+      {{"you walk to ", "go almost at ", "walk until "}, {"the "}, {"very ", ""}, {"end "}});
     during_.push_back(tmp);
   }
 
