@@ -79,13 +79,13 @@ void Sentences::createBegin()
   {
     sentence_t tmp(start_corridor,
       {{"just ", "you "}, {"go ", "walk ", "go straight "},
-      {"across ", "through ", "on ", "down "}, {"that ", "this "}, {"corridor ", "aisle "}, {". ", ", ", "then ", "and then "}});
+      {"across ", "through ", "on ", "down "}, {"that ", "this "}, {"corridor ", "aisle "}});
     begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(start_corridor,
-      {{"you go to this "}, {"corridor ", "aisle "}, {", ", "then "}});
+      {{"you go to this "}, {"corridor ", "aisle "}});
     begin_.push_back(tmp);
   }
 
@@ -109,7 +109,7 @@ void Sentences::createBegin()
 
   {
     sentence_t tmp(start_interface,
-      {{"/I "}, {". ", ", ", "then ", "and then "}});
+      {{"/I "}});
     begin_.push_back(tmp);
   }
 }
