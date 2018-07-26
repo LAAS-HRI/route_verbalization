@@ -19,7 +19,7 @@ void Sentences::createEnd()
 {
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", ", ", ". After that ", ". Finally, "}, {"you will "}, {"see ", "find "},
+      {{"and ", "then ", ". ", ". After that ", ". Finally, "}, {"you will "}, {"see ", "find "},
       {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
       {"side ", "when you walk ", ""}});
     end_.push_back(tmp);
@@ -27,20 +27,20 @@ void Sentences::createEnd()
 
   {
     sentence_t tmp(end_side,
-      {{"and ", "then ", "it's then ", ". After that, "}, {"on "}, {"the ", "your "},
+      {{"and it's ", "then ", "it's then ", ". After that, "}, {"on "}, {"the ", "your "},
       {"/D "}, {"side ", "when you walk", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then ", ", ", ". After that, ", "and ", ". Finally, "}, {"it will be on your "}, {"/D "}, {"side ", "when you walk", ""}});
+      {{"then ", ". After that, ", ". ", "and ", ". Finally, ", ". From there on, "}, {"it will be on your "}, {"/D "}, {"side ", "when you walk", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then ", ". After that, ", "and ", ". Finally, "}, {"it's on the "}, {"/D "}, {"there "}});
+      {{"then ", ". After that, ", "and ", ". Finally, ", ". From there on, "}, {"it's on the "}, {"/D "}, {"there "}});
     end_.push_back(tmp);
   }
 
@@ -64,13 +64,13 @@ void Sentences::createEnd()
 
   {
     sentence_t tmp(end_here,
-      {{"then ", ". After that, ", "and ", ". Finally, "}, {"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
+      {{"then ", ". After that, ", "and ", ". Finally, ", ". From there on, "}, {"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_in_front,
-      {{"then ", ". After that, ", "and ", ". Finally, "}, {"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
+      {{"then ", ". After that, ", "and ", ". Finally, ", ". From there on, "}, {"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
     end_.push_back(tmp);
   }
 }
@@ -132,14 +132,14 @@ void Sentences::createBegin()
 {
   {
     sentence_t tmp(start_corridor,
-      {{"just ", "you "}, {"go ", "walk ", "go straight "},
+      {{"just ", ""}, {"go ", "walk ", "go straight "},
       {"across ", "through ", "on ", "down "}, {"that ", "this "}, {"corridor ", "aisle "}});
     begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(start_corridor,
-      {{"you go to this "}, {"corridor ", "aisle "}});
+      {{"go to this "}, {"corridor ", "aisle "}});
     begin_.push_back(tmp);
   }
 
@@ -172,7 +172,7 @@ void Sentences::createDuring()
 {
   {
     sentence_t tmp(during_end_of_corridor,
-      {{"you walk to ", "go almost at ", "walk until "}, {"the "}, {"very ", ""}, {"end "}});
+      {{"walk to ", "go almost at ", "walk until "}, {"the "}, {"very ", ""}, {"end of the "}, {"corridor ", "aisle "}});
     during_.push_back(tmp);
   }
 
@@ -229,7 +229,7 @@ void Sentences::createPunctuation()
 {
   {
     sentence_t tmp(punctuation,
-      {{", ", "and ", ", and then ", ", then ", ". Then, ", ". "}});
+      {{", ", ", and then, ", ", then ", ". Then, ", ". "}});
     punctuation_.push_back(tmp);
   }
 }
