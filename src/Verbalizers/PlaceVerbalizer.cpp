@@ -220,7 +220,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         }
       }
       else
-        std::cout << "Your programmer is bugging ..." << std::endl; //TODO
+        getDirectionToRight(res_prelim, res, corridor, from, to, from_current, step, nb_steps);
     }
   }
   else if((to_index = getIndex(corridor.at_left_, to)) >= 0) //next goal at left
@@ -243,7 +243,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
       res = getAllSide(from_current, step, nb_steps, to, right);
     else if((from_index = getIndex(corridor.at_begin_edge_, from)) >= 0)
       res = getAllSide(from_current, step, nb_steps, to, left);
-    else // from at left
+    else // from at right
     {
       if(corridor.in_front_of_.find(from) != corridor.in_front_of_.end())
       {
@@ -261,7 +261,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         }
       }
       else
-        std::cout << "Your programmer is bugging ..." << std::endl; //TODO
+        getDirectionToLeft(res_prelim, res, corridor, from, to, from_current, step, nb_steps);
     }
   }
 
@@ -270,6 +270,120 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
     result.push_back(res_prelim);
   result.push_back(res);
   return result;
+}
+
+void PlaceVerbalizer::getDirectionToLeft(sentence_req_t& res_prelim, sentence_req_t& res, corridor_t& corridor, std::string from, std::string to, bool from_current, size_t step, size_t nb_steps)
+{
+  size_t from_index = getIndex(corridor.at_right_, from);
+  int right_side_index = -1;
+  int left_side_index = -1;
+
+  for(int i = from_index-1; i >= 0; i--)
+  {
+    if(corridor.in_front_of_.find(corridor.at_right_[i]) != corridor.in_front_of_.end())
+    {
+      left_side_index = i;
+      break;
+    }
+  }
+
+  for(size_t i = from_index+1; i < corridor.at_right_.size(); i++)
+  {
+    if(corridor.in_front_of_.find(corridor.at_right_[i]) != corridor.in_front_of_.end())
+    {
+      right_side_index = i;
+      break;
+    }
+  }
+
+  bool found = false;
+
+  if(right_side_index != -1)
+  {
+    size_t right_other_side_index = getIndex(corridor.at_left_, corridor.in_front_of_[corridor.at_right_[right_side_index]]);
+    for(int i = right_other_side_index; i < (int)corridor.at_left_.size(); i++)
+      if(corridor.at_left_[i] == to)
+      {
+        res_prelim = sentence_req_t(during_turn_continu_corridor, "", right);
+        res = getAllSide(from_current, step, nb_steps, to, left);
+        found = true;
+        break;
+      }
+  }
+
+  if(left_side_index != -1)
+  {
+    size_t left_other_side_index = getIndex(corridor.at_left_, corridor.in_front_of_[corridor.at_right_[left_side_index]]);
+    for(int i = left_other_side_index; i >= 0; i--)
+      if(corridor.at_left_[i] == to)
+      {
+        res_prelim = sentence_req_t(during_turn_continu_corridor, "", left);
+        res = getAllSide(from_current, step, nb_steps, to, right);
+        found = true;
+        break;
+      }
+  }
+
+  if(found == false)
+    std::cout << "Your programmer is bugging ..." << std::endl; //TODO
+}
+
+void PlaceVerbalizer::getDirectionToRight(sentence_req_t& res_prelim, sentence_req_t& res, corridor_t& corridor, std::string from, std::string to, bool from_current, size_t step, size_t nb_steps)
+{
+  size_t from_index = getIndex(corridor.at_left_, from);
+  int right_side_index = -1;
+  int left_side_index = -1;
+
+  for(int i = from_index-1; i >= 0; i--)
+  {
+    std::cout << "left test : " << corridor.at_left_[i] << std::endl;
+    if(corridor.in_front_of_.find(corridor.at_left_[i]) != corridor.in_front_of_.end())
+    {
+      left_side_index = i;
+      break;
+    }
+  }
+
+  for(size_t i = from_index+1; i < corridor.at_left_.size(); i++)
+  {
+    std::cout << "right test : " << corridor.at_left_[i] << std::endl;
+    if(corridor.in_front_of_.find(corridor.at_left_[i]) != corridor.in_front_of_.end())
+    {
+      right_side_index = i;
+      break;
+    }
+  }
+
+  bool found = false;
+
+  if(right_side_index != -1)
+  {
+    size_t right_other_side_index = getIndex(corridor.at_right_, corridor.in_front_of_[corridor.at_left_[right_side_index]]);
+    for(int i = right_other_side_index; i < (int)corridor.at_right_.size(); i++)
+      if(corridor.at_right_[i] == to)
+      {
+        res_prelim = sentence_req_t(during_turn_continu_corridor, "", left);
+        res = getAllSide(from_current, step, nb_steps, to, right);
+        found = true;
+        break;
+      }
+  }
+
+  if(left_side_index != -1)
+  {
+    size_t left_other_side_index = getIndex(corridor.at_right_, corridor.in_front_of_[corridor.at_left_[left_side_index]]);
+    for(int i = left_other_side_index; i >= 0; i--)
+      if(corridor.at_right_[i] == to)
+      {
+        res_prelim = sentence_req_t(during_turn_continu_corridor, "", right);
+        res = getAllSide(from_current, step, nb_steps, to, left);
+        found = true;
+        break;
+      }
+  }
+
+  if(found == false)
+    std::cout << "Your programmer is bugging ..." << std::endl; //TODO
 }
 
 std::vector<sentence_req_t> PlaceVerbalizer::getDirectionOpenspace(std::string& from, std::string& openspace_name, std::string& to, bool from_current, size_t step, size_t nb_steps)

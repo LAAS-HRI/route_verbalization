@@ -35,6 +35,8 @@ private:
   std::vector<sentence_req_t> getDirectionOpenspace(std::string& from, std::string& openspace_name, std::string& to, bool from_current, size_t step, size_t nb_steps);
   std::vector<sentence_req_t> getDirectionOpenspace(std::string& from, openspace_t& openspace, std::string& to, bool from_current, size_t step, size_t nb_steps);
   std::vector<sentence_req_t> getDirectionRegion(std::string& from, std::string& region_name, std::string& to, bool from_current, size_t step, size_t nb_steps);
+  void getDirectionToLeft(sentence_req_t& res_prelim, sentence_req_t& res, corridor_t& corridor, std::string from, std::string to, bool from_current, size_t step, size_t nb_steps);
+  void getDirectionToRight(sentence_req_t& res_prelim, sentence_req_t& res, corridor_t& corridor, std::string from, std::string to, bool from_current, size_t step, size_t nb_steps);
 
   int getIndex(std::vector<std::string>& vect, std::string& word);
   bool isBefore(std::vector<std::string>& vect, std::string& word, size_t index);
