@@ -15,7 +15,6 @@ $ rosrun route_verbalization verbalize_route
 It will provide to services :
  - route_verbalization/verbalizeRegion
  - route_verbalization/verbalizePlace
- > The place verbalization is in progress
 
 ### Test
 
