@@ -362,6 +362,9 @@ bool Sentences::replace(std::string& text, sentence_req_t& req)
     if(req.place_ != "")
     {
       std::string name = onto_->individuals.getName(req.place_);
+      if(onto_->individuals.isA(req.place_, "interface"))
+        name = "the " + name;
+
       text.replace(text.begin() + pose, text.begin() + pose + 2, name);
     }
     else
@@ -372,7 +375,13 @@ bool Sentences::replace(std::string& text, sentence_req_t& req)
   {
     if(req.reference_ != "")
     {
+      if(onto_->individuals.isA(req.reference_, "pathIntersection"))
+        return false;
+
       std::string name = onto_->individuals.getName(req.reference_);
+      if(onto_->individuals.isA(req.reference_, "interface"))
+        name = "the " + name;
+
       text.replace(text.begin() + pose, text.begin() + pose + 2, name);
     }
     else
