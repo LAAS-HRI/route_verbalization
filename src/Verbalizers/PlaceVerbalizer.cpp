@@ -1,6 +1,7 @@
 #include "route_verbalization/Verbalizers/PlaceVerbalizer.h"
 
 #include <iostream>
+#include <random>
 
 PlaceVerbalizer::PlaceVerbalizer(OntologyManipulator* onto) : onto_(onto), sentences(onto_)
 {
@@ -124,7 +125,10 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   sentence_req_t res_prelim = sentence_req_t(none_type, "");
   sentence_req_t res;
 
-  std::string right_from, left_from, right_to, left_to;
+  right_from = "";
+  left_from = "";
+  right_to = "";
+  left_to = "";
 
   if(getIndex(corridor.at_begin_edge_, from) >= 0)
     getRightLeft(corridor.at_begin_edge_, from, right_from, left_from);
@@ -134,6 +138,15 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
     getRightLeft(corridor.at_right_, from, right_from, left_from);
   else if(getIndex(corridor.at_left_, from) >= 0)
     getRightLeft(corridor.at_left_, from, right_from, left_from);
+
+  if(getIndex(corridor.at_begin_edge_, to) >= 0)
+    getRightLeft(corridor.at_begin_edge_, to, right_to, left_to);
+  else if(getIndex(corridor.at_end_edge_, to) >= 0)
+    getRightLeft(corridor.at_end_edge_, to, right_to, left_to);
+  else if(getIndex(corridor.at_right_, to) >= 0)
+    getRightLeft(corridor.at_right_, to, right_to, left_to);
+  else if(getIndex(corridor.at_left_, to) >= 0)
+    getRightLeft(corridor.at_left_, to, right_to, left_to);
 
   int from_index, to_index = -1;
   if((to_index = getIndex(corridor.at_begin_edge_, to)) >= 0) //next goal at begin_edge
@@ -264,6 +277,8 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         getDirectionToLeft(res_prelim, res, corridor, from, to, from_current, step, nb_steps);
     }
   }
+  setReference(res);
+  setReference(res_prelim);
 
   std::vector<sentence_req_t> result;
   if(res_prelim.type_ != none_type)
@@ -410,6 +425,17 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionOpenspace(std::string& 
   int from_index = getIndex(openspace.around_, from);
   if(from_index >= 0)
   {
+    right_from = "";
+    left_from = "";
+    right_to = "";
+    left_to = "";
+
+    if(getIndex(openspace.around_, from) >= 0)
+      getRightLeftCircle(openspace.around_, from, right_from, left_from);
+
+    if(getIndex(openspace.around_, to) >= 0)
+      getRightLeftCircle(openspace.around_, to, right_to, left_to);
+
     if(openspace.in_front_of_.find(openspace.around_[from_index]) != openspace.in_front_of_.end())
     {
       if(openspace.in_front_of_[openspace.around_[from_index]] == to)
@@ -448,6 +474,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionOpenspace(std::string& 
       }
     }
   }
+  setReference(res);
 
   std::vector<sentence_req_t> result;
   result.push_back(res);
@@ -499,6 +526,7 @@ sentence_req_t PlaceVerbalizer::getOsFront(bool from_current, size_t step, size_
     res.type_ = chooseMoment(start_interface, during_interface_font, end_in_front, from_current, step, nb_steps);
   else
     res.type_ = chooseMoment(start_corridor, during_interface_font, end_in_front, from_current, step, nb_steps);
+
   return res;
 }
 
@@ -510,6 +538,7 @@ sentence_req_t PlaceVerbalizer::getAllSide(bool from_current, size_t step, size_
     res.type_ = chooseMoment(start_interface, during_interface_side, end_side, from_current, step, nb_steps);
   else
     res.type_ = chooseMoment(start_corridor, during_turn, end_side, from_current, step, nb_steps);
+
   return res;
 }
 
@@ -521,6 +550,7 @@ sentence_req_t PlaceVerbalizer::getOsRef(bool from_current, size_t step, size_t 
     res.type_ = chooseMoment(start_interface, during_interface_side, end_here, from_current, step, nb_steps);
   else
     res.type_ = chooseMoment(start_corridor, during_interface_side, end_here, from_current, step, nb_steps);
+
   return res;
 }
 
@@ -532,6 +562,7 @@ sentence_req_t PlaceVerbalizer::getHereSide(bool from_current, size_t step, size
     res.type_ = chooseMoment(start_interface, during_interface_side, end_here, from_current, step, nb_steps);
   else
     res.type_ = chooseMoment(start_corridor, during_turn, end_here, from_current, step, nb_steps);
+
   return res;
 }
 
@@ -543,6 +574,7 @@ sentence_req_t PlaceVerbalizer::getAtEnd(bool from_current, size_t step, size_t 
     res.type_ = chooseMoment(start_interface, during_end_of_corridor, end_in_front, from_current, step, nb_steps);
   else
     res.type_ = chooseMoment(start_end_of_corridor, during_end_of_corridor, end_in_front, from_current, step, nb_steps);
+
   return res;
 }
 
@@ -553,4 +585,73 @@ void PlaceVerbalizer::getRightLeft(std::vector<std::string> places, std::string 
     left = places[index - 1];
   if(index < places.size() - 1)
     right = places[index + 1];
+}
+
+void PlaceVerbalizer::getRightLeftCircle(std::vector<std::string> places, std::string place, std::string& right, std::string& left)
+{
+  size_t index = getIndex(places, place);
+  if(index > 0)
+    left = places[index - 1];
+  else
+    left = places[places.size() - index - 1];
+  if(index < places.size() - 1)
+    right = places[index + 1];
+  else
+    right = places[(index + 1) % places.size()];
+}
+
+void PlaceVerbalizer::setReference(sentence_req_t& req)
+{
+  if((req.type_ == during_turn_continu_corridor) ||
+     (req.type_ == during_turn) ||
+     (req.type_ == during_interface_font) ||
+     (req.type_ == during_interface_side))
+    setReference(req, right_from, left_from);
+  else
+    setReference(req, right_to, left_to);
+}
+
+void PlaceVerbalizer::setReference(sentence_req_t& req, std::string right_place, std::string left_place)
+{
+  if(right_place == "")
+  {
+    std::cout << "right empty" << std::endl;
+    if(left_place != "")
+    {
+      std::cout << "left full" << std::endl;
+      req.reference_ = left_place;
+      req.refrence_side_ = left;
+    }
+  }
+  else if(left_place == "")
+  {
+    std::cout << "left empty" << std::endl;
+    if(right_place != "")
+    {
+      std::cout << "right full" << std::endl;
+      req.reference_ = right_place;
+      req.refrence_side_ = right;
+    }
+  }
+  else
+  {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::uniform_int_distribution<> dis(0, 1);
+    size_t index = dis(gen);
+
+    if(index == 0)
+    {
+      req.reference_ = left_place;
+      req.refrence_side_ = left;
+    }
+    else
+    {
+      req.reference_ = right_place;
+      req.refrence_side_ = right;
+    }
+  }
+  std::cout << "setReference = " << req.reference_ << " at " << req.refrence_side_ << std::endl;
+  std::cout << right_place << " <=> " << left_place << std::endl;
 }

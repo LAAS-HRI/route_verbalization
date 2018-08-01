@@ -178,19 +178,19 @@ void Sentences::createDuring()
 
   {
     sentence_t tmp(during_turn_continu_corridor,
-      {{"turn "}, {"/D "}, {"at ", "straight after "}, {"/Y "}, {"and "}, {"continue straight ", "walk down the corridor "}});
+      {{"turn "}, {"/D "}, {"at ", "straight after "}, {"/Y "}});
     during_.push_back(tmp);
   }
 
   {
     sentence_t tmp(during_turn_continu_corridor,
-      {{"turn "}, {"/D "}, {"and you will see /Y ", ""}});
+      {{"turn "}, {"/D "}});
     during_.push_back(tmp);
   }
 
   {
     sentence_t tmp(during_turn,
-      {{"turn "}, {"/D "}, {"and you will see /Y ", ""}});
+      {{"turn "}, {"/D "}});
     during_.push_back(tmp);
   }
 
@@ -215,12 +215,6 @@ void Sentences::createDuring()
   {
     sentence_t tmp(during_interface_side,
       {{"/I "}, {"at "}, {"the ", "your "}, {"/D "}, {"side ", ""}});
-    during_.push_back(tmp);
-  }
-
-  {
-    sentence_t tmp(during_interface_side,
-      {{"/I "}, {"that it's "}, {"ont he /DY side of ", "next to ", "at /DY of "}, {"/Y "}});
     during_.push_back(tmp);
   }
 }
@@ -272,6 +266,7 @@ std::string Sentences::getSentence(sentence_req_t req, bool begin)
 
 std::string Sentences::getSentence(sentence_req_t& req, std::vector<sentence_t>& base)
 {
+  std::cout << "get sentence ref = " << req.reference_ << " at " << req.refrence_side_ << std::endl;
   std::string res;
   size_t timeout = 30;
   do
@@ -337,18 +332,9 @@ bool Sentences::replace(std::string& text, sentence_req_t& req)
   std::string left_str = "left";
   std::string right_str = "right";
 
-  size_t pose = std::string::npos;
-  while((pose = text.find("/D")) != std::string::npos)
-  {
-    if(req.side_ != none_side)
-      if(req.side_ == right)
-        text.replace(text.begin() + pose, text.begin() + pose + 2, right_str);
-      else
-        text.replace(text.begin() + pose, text.begin() + pose + 2, left_str);
-    else
-      return false;
-  }
+  std::cout << text << std::endl;
 
+  size_t pose = std::string::npos;
   while((pose = text.find("/DY")) != std::string::npos)
   {
     if(req.refrence_side_ != none_side)
@@ -356,6 +342,17 @@ bool Sentences::replace(std::string& text, sentence_req_t& req)
         text.replace(text.begin() + pose, text.begin() + pose + 3, right_str);
       else
         text.replace(text.begin() + pose, text.begin() + pose + 3, left_str);
+    else
+      return false;
+  }
+
+  while((pose = text.find("/D")) != std::string::npos)
+  {
+    if(req.side_ != none_side)
+      if(req.side_ == right)
+        text.replace(text.begin() + pose, text.begin() + pose + 2, right_str);
+      else
+        text.replace(text.begin() + pose, text.begin() + pose + 2, left_str);
     else
       return false;
   }

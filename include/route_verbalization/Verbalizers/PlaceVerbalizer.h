@@ -28,6 +28,8 @@ private:
   std::vector<openspace_t> openspaces_;
   std::map<std::string, std::string> word_map;
 
+  std::string right_from, left_from, right_to, left_to;
+
   std::vector<sentence_req_t> getDirection(std::string& from, std::string& path, std::string& to, bool from_current, size_t step, size_t nb_steps);
   std::vector<sentence_req_t> getDirectionPath(std::string& from, std::string& path, std::string& to, bool from_current, size_t step, size_t nb_steps);
   std::vector<sentence_req_t> getDirectionCorridor(std::string& from, std::string& corridor_name, std::string& to, bool from_current, size_t step, size_t nb_steps);
@@ -49,6 +51,9 @@ private:
   sentence_req_t getAtEnd(bool from_current, size_t step, size_t nb_steps, std::string to);
 
   void getRightLeft(std::vector<std::string> places, std::string place, std::string& right, std::string& left);
+  void getRightLeftCircle(std::vector<std::string> places, std::string place, std::string& right, std::string& left);
+  void setReference(sentence_req_t& req);
+  void setReference(sentence_req_t& req, std::string right_place, std::string left_place);
 };
 
 #endif
