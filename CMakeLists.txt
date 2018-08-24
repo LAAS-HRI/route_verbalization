@@ -76,7 +76,6 @@ add_library(route_verbalization_lib
  target_link_libraries(route_verbalization_lib ${catkin_LIBRARIES})
  add_dependencies(route_verbalization_lib ${catkin_EXPORTED_TARGETS})
  target_link_libraries(route_verbalization_lib ${OpenCV_LIBS})
- target_link_libraries(route_verbalization_lib ontoloGenius_lib)
 
 add_executable(draw_route nodes/draw.cpp)
 target_link_libraries(draw_route ${catkin_LIBRARIES})
