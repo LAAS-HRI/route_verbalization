@@ -243,13 +243,13 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
     {
       if(isBefore(corridor.at_left_, from, to_index))
       {
-        res_prelim = sentence_req_t(during_turn_continu_corridor, "", right);
-        res = getAllSide(from_current, step, nb_steps, to, right);
+        res_prelim = sentence_req_t(during_turn_continu_corridor, "", left);
+        res = getAllSide(from_current, step, nb_steps, to, left);
       }
       else
       {
-        res_prelim = sentence_req_t(during_turn_continu_corridor, "", left);
-        res = getAllSide(from_current, step, nb_steps, to, left);
+        res_prelim = sentence_req_t(during_turn_continu_corridor, "", right);
+        res = getAllSide(from_current, step, nb_steps, to, right);
       }
     }
     else if((from_index = getIndex(corridor.at_end_edge_, from)) >= 0)
