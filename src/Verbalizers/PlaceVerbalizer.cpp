@@ -591,13 +591,13 @@ void PlaceVerbalizer::getRightLeftCircle(std::vector<std::string> places, std::s
 {
   size_t index = getIndex(places, place);
   if(index > 0)
-    left = places[index - 1];
+    right = places[index - 1];
   else
-    left = places[places.size() - index - 1];
+    right = places[places.size() - index - 1];
   if(index < places.size() - 1)
-    right = places[index + 1];
+    left = places[index + 1];
   else
-    right = places[(index + 1) % places.size()];
+    left = places[(index + 1) % places.size()];
 }
 
 void PlaceVerbalizer::setReference(sentence_req_t& req)
