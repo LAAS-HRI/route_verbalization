@@ -52,7 +52,7 @@ bool PlaceVerbalizer::verbalizePlaceRoute(std::vector<std::string> route, std::s
         for(size_t seq = 0; seq < req.size(); seq++)
         {
           if((req.size() > 1) && (seq == 0) && (step > 1))
-            text += "and ";
+            text += "and, ";
           else if((step > 1) && (step < nb_steps))
           {
             text += sentences.getPunctuation();
