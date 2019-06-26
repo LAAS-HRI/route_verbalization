@@ -193,7 +193,13 @@ void Sentences::createDuring()
       {{"turn "}, {"/D "}});
     during_.push_back(tmp);
   }
-  
+
+  {
+    sentence_t tmp(during_turn,
+      {{"turn "}, {"/D "}, {"at ", "straight after "}, {"/Y "}});
+    during_.push_back(tmp);
+  }
+
   {
     sentence_t tmp(during_reference,
       {{"you will "}, {"see ", "find "}, {"/Y "}});

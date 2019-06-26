@@ -227,12 +227,18 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         else if(getIndex(corridor.at_right_, corridor.in_front_of_[from]) > getIndex(corridor.at_right_, to))
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", right); // do not touch
-          res = getAllSide(from_current, step, nb_steps, to, left);
+          if(getIndex(corridor.at_right_, to) > 0)
+            res = getAllSide(from_current, step, nb_steps, to, left, corridor.at_right_[getIndex(corridor.at_right_, to) + 1]);
+          else
+            res = getAllSide(from_current, step, nb_steps, to, left);
         }
         else
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", left); // do not touch
-          res = getAllSide(from_current, step, nb_steps, to, right);
+          if(getIndex(corridor.at_right_, to) < corridor.at_right_.size() - 1)
+            res = getAllSide(from_current, step, nb_steps, to, right, corridor.at_right_[getIndex(corridor.at_right_, to) - 1]);
+          else
+            res = getAllSide(from_current, step, nb_steps, to, right);
         }
       }
       else
@@ -269,20 +275,29 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         else if(getIndex(corridor.at_left_, corridor.in_front_of_[from]) > getIndex(corridor.at_left_, to))
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", right);
-          res = getAllSide(from_current, step, nb_steps, to, left);
+          if(getIndex(corridor.at_left_, to) < corridor.at_left_.size() - 1)
+            res = getAllSide(from_current, step, nb_steps, to, left, corridor.at_left_[getIndex(corridor.at_left_, to) - 1]);
+          else
+            res = getAllSide(from_current, step, nb_steps, to, left);
         }
         else
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", left);
-          res = getAllSide(from_current, step, nb_steps, to, right);
+          if(getIndex(corridor.at_left_, to) > 0)
+            res = getAllSide(from_current, step, nb_steps, to, right, corridor.at_left_[getIndex(corridor.at_left_, to) + 1]);
+          else
+            res = getAllSide(from_current, step, nb_steps, to, right);
         }
       }
       else
         getDirectionToLeft(res_prelim, res, corridor, from, to, from_current, step, nb_steps);
     }
   }
-  setReference(res);
-  setReference(res_prelim);
+  if(res.reference_ == "")
+    setReference(res);
+
+  if(res_prelim.reference_ == "")
+    setReference(res_prelim);
 
   std::vector<sentence_req_t> result;
   if(res_prelim.type_ != none_type)
@@ -534,9 +549,9 @@ sentence_req_t PlaceVerbalizer::getOsFront(bool from_current, size_t step, size_
   return res;
 }
 
-sentence_req_t PlaceVerbalizer::getAllSide(bool from_current, size_t step, size_t nb_steps, std::string to, side_t side)
+sentence_req_t PlaceVerbalizer::getAllSide(bool from_current, size_t step, size_t nb_steps, std::string to, side_t side, std::string ref)
 {
-  sentence_req_t res(to, side);
+  sentence_req_t res(to, side, ref);
   std::vector<std::string> to_type = onto_->individuals.getUp(to);
   if(std::find(to_type.begin(), to_type.end(), "interface") != to_type.end())
     res.type_ = chooseMoment(start_interface, during_interface_side, end_side, from_current, step, nb_steps);
