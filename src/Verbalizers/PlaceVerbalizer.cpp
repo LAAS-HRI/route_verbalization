@@ -151,6 +151,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   int from_index, to_index = -1;
   if((to_index = getIndex(corridor.at_begin_edge_, to)) >= 0) //next goal at begin_edge
   {
+    std::cout << "NEXT GOAL AT BE" << std::endl;
     getRightLeft(corridor.at_begin_edge_, to, right_to, left_to);
     if((from_index = getIndex(corridor.at_begin_edge_, from)) >= 0)
     {
@@ -174,6 +175,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   }
   else if((to_index = getIndex(corridor.at_end_edge_, to)) >= 0) //next goal at end_edge
   {
+    std::cout << "NEXT GOAL AT EE" << std::endl;
     getRightLeft(corridor.at_end_edge_, to, right_to, left_to);
     if((from_index = getIndex(corridor.at_end_edge_, from)) >= 0)
     {
@@ -197,6 +199,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   }
   else if((to_index = getIndex(corridor.at_right_, to)) >= 0) //next goal at right
   {
+    std::cout << "NEXT GOAL AT RIGHT" << std::endl;
     getRightLeft(corridor.at_right_, to, right_to, left_to);
     if((from_index = getIndex(corridor.at_right_, from)) >= 0)
     {
@@ -221,14 +224,14 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
       {
         if(corridor.in_front_of_[from] == to)
           res = getOsFront(from_current, step, nb_steps, to);
-        else if(getIndex(corridor.at_left_, corridor.in_front_of_[from]) > getIndex(corridor.at_left_, to))
+        else if(getIndex(corridor.at_right_, corridor.in_front_of_[from]) > getIndex(corridor.at_right_, to))
         {
-          res_prelim = sentence_req_t(during_turn_continu_corridor, "", right);
+          res_prelim = sentence_req_t(during_turn_continu_corridor, "", right); // do not touch
           res = getAllSide(from_current, step, nb_steps, to, left);
         }
         else
         {
-          res_prelim = sentence_req_t(during_turn_continu_corridor, "", left);
+          res_prelim = sentence_req_t(during_turn_continu_corridor, "", left); // do not touch
           res = getAllSide(from_current, step, nb_steps, to, right);
         }
       }
@@ -238,6 +241,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   }
   else if((to_index = getIndex(corridor.at_left_, to)) >= 0) //next goal at left
   {
+    std::cout << "NEXT GOAL AT LEFT" << std::endl;
     getRightLeft(corridor.at_left_, to, right_to, left_to);
     if((from_index = getIndex(corridor.at_left_, from)) >= 0)
     {

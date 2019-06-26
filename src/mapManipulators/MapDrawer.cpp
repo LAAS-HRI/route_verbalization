@@ -52,7 +52,7 @@ void MapDrawer::drawOneCorridor(corridor_t corridor)
 {
   size_t nb_places = 0;
 
-  image = cvCreateImage(cvSize(1000, 400), IPL_DEPTH_8U, 3);
+  image = cvCreateImage(cvSize(3000, 400), IPL_DEPTH_8U, 3);
   cvSet(image, cvScalar(255,255,255));
 
   drawCorridor_t to_draw;

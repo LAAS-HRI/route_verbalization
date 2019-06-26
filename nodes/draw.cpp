@@ -16,7 +16,7 @@ int main(int argc, char** argv)
   ros::NodeHandle n;
   n_ = &n;
 
-  ros::service::waitForService("ontoloGenius/arguer", -1);
+  ros::service::waitForService("/ontologenius/reasoner", -1);
 
   ROS_DEBUG("semantic_route_drawer ready");
 
