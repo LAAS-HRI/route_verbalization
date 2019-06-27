@@ -601,9 +601,19 @@ void PlaceVerbalizer::getRightLeft(std::vector<std::string> places, std::string 
 {
   size_t index = getIndex(places, place);
   if(index > 0)
+  {
     left = places[index - 1];
+    auto types = onto_->individuals.getUp(left);
+    if(std::find(types.begin(), types.end(), "empty_place") != types.end())
+      left = "";
+  }
   if(index < places.size() - 1)
+  {
     right = places[index + 1];
+    auto types = onto_->individuals.getUp(right);
+    if(std::find(types.begin(), types.end(), "empty_place") != types.end())
+      right = "";
+  }
 }
 
 void PlaceVerbalizer::getRightLeftCircle(std::vector<std::string> places, std::string place, std::string& right, std::string& left)
@@ -632,6 +642,13 @@ void PlaceVerbalizer::setReference(sentence_req_t& req)
 
 void PlaceVerbalizer::setReference(sentence_req_t& req, std::string right_place, std::string left_place)
 {
+  auto types = onto_->individuals.getUp(right_place);
+  if(std::find(types.begin(), types.end(), "empty_place") != types.end())
+    right_place = "";
+  types = onto_->individuals.getUp(left_place);
+  if(std::find(types.begin(), types.end(), "empty_place") != types.end())
+    left_place = "";
+
   if(req.type_ == end_side)
   {
     std::cout << "reference: is an end side" << std::endl;
