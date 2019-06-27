@@ -228,7 +228,13 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", right); // do not touch
           if(getIndex(corridor.at_right_, to) > 0)
-            res = getAllSide(from_current, step, nb_steps, to, left, corridor.at_right_[getIndex(corridor.at_right_, to) + 1]);
+          {
+            auto types = onto_->individuals.getUp(corridor.at_right_[getIndex(corridor.at_right_, to) + 1]);
+            if(std::find(types.begin(), types.end(), "empty_place") == types.end())
+              res = getAllSide(from_current, step, nb_steps, to, left, corridor.at_right_[getIndex(corridor.at_right_, to) + 1]);
+            else
+              res = getAllSide(from_current, step, nb_steps, to, left);
+          }
           else
             res = getAllSide(from_current, step, nb_steps, to, left);
         }
@@ -236,7 +242,13 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", left); // do not touch
           if(getIndex(corridor.at_right_, to) < corridor.at_right_.size() - 1)
-            res = getAllSide(from_current, step, nb_steps, to, right, corridor.at_right_[getIndex(corridor.at_right_, to) - 1]);
+          {
+            auto types = onto_->individuals.getUp(corridor.at_right_[getIndex(corridor.at_right_, to) - 1]);
+            if(std::find(types.begin(), types.end(), "empty_place") == types.end())
+              res = getAllSide(from_current, step, nb_steps, to, right, corridor.at_right_[getIndex(corridor.at_right_, to) - 1]);
+            else
+              res = getAllSide(from_current, step, nb_steps, to, right);
+          }
           else
             res = getAllSide(from_current, step, nb_steps, to, right);
         }
@@ -276,7 +288,13 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", right);
           if(getIndex(corridor.at_left_, to) < corridor.at_left_.size() - 1)
-            res = getAllSide(from_current, step, nb_steps, to, left, corridor.at_left_[getIndex(corridor.at_left_, to) - 1]);
+          {
+            auto types = onto_->individuals.getUp(corridor.at_left_[getIndex(corridor.at_left_, to) - 1]);
+            if(std::find(types.begin(), types.end(), "empty_place") == types.end())
+              res = getAllSide(from_current, step, nb_steps, to, left, corridor.at_left_[getIndex(corridor.at_left_, to) - 1]);
+            else
+              res = getAllSide(from_current, step, nb_steps, to, left);
+          }
           else
             res = getAllSide(from_current, step, nb_steps, to, left);
         }
@@ -284,7 +302,13 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
         {
           res_prelim = sentence_req_t(during_turn_continu_corridor, "", left);
           if(getIndex(corridor.at_left_, to) > 0)
-            res = getAllSide(from_current, step, nb_steps, to, right, corridor.at_left_[getIndex(corridor.at_left_, to) + 1]);
+          {
+            auto types = onto_->individuals.getUp(corridor.at_left_[getIndex(corridor.at_left_, to) + 1]);
+            if(std::find(types.begin(), types.end(), "empty_place") == types.end())
+              res = getAllSide(from_current, step, nb_steps, to, right, corridor.at_left_[getIndex(corridor.at_left_, to) + 1]);
+            else
+              res = getAllSide(from_current, step, nb_steps, to, right);
+          }
           else
             res = getAllSide(from_current, step, nb_steps, to, right);
         }
