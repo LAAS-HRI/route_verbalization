@@ -632,7 +632,25 @@ void PlaceVerbalizer::setReference(sentence_req_t& req)
 
 void PlaceVerbalizer::setReference(sentence_req_t& req, std::string right_place, std::string left_place)
 {
-  if(right_place == "")
+  if(req.type_ == end_side)
+  {
+    std::cout << "reference: is an end side" << std::endl;
+    if(req.side_ == right)
+      std::cout << "--> req at right => left place = " << right_place << std::endl;
+    else
+      std::cout << "--> req at left => right place = " << left_place << std::endl;
+    if((req.side_ == right) && (right_place != ""))
+    {
+      req.reference_ = right_place;
+      req.refrence_side_ = left;
+    }
+    else if((req.side_ == left) && (left_place != ""))
+    {
+      req.reference_ = left_place;
+      req.refrence_side_ = right;
+    }
+  }
+  else if(right_place == "")
   {
     std::cout << "right empty" << std::endl;
     if(left_place != "")
