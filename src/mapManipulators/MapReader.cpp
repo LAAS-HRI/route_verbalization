@@ -10,7 +10,7 @@ void MapReader::getMap()
   {
     getSides(corridors_[i]);
     getInFrontOf(corridors_[i]);
-    //displayCorridor(corridors_[i]);
+    displayCorridor(corridors_[i]);
   }
 
   getOpenspaces();
