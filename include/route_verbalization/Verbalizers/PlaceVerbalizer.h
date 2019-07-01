@@ -45,7 +45,7 @@ private:
   sentences_type chooseMoment(sentences_type start, sentences_type during, sentences_type end, bool from_current, size_t step, size_t nb_steps);
 
   sentence_req_t getOsFront(bool from_current, size_t step, size_t nb_steps, std::string to);
-  sentence_req_t getAllSide(bool from_current, size_t step, size_t nb_steps, std::string to, side_t side);
+  sentence_req_t getAllSide(bool from_current, size_t step, size_t nb_steps, std::string to, side_t side, std::string ref = "");
   sentence_req_t getOsRef(bool from_current, size_t step, size_t nb_steps, std::string to, std::string ref, side_t side);
   sentence_req_t getHereSide(bool from_current, size_t step, size_t nb_steps, std::string to, side_t side);
   sentence_req_t getAtEnd(bool from_current, size_t step, size_t nb_steps, std::string to);

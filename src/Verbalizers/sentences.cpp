@@ -21,38 +21,38 @@ void Sentences::createEnd()
     sentence_t tmp(end_side,
       {{"and, ", "then, ", ". ", ". After that ", ". Finally, "}, {"you will "}, {"see ", "find "},
       {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
-      {"side ", "when you walk ", ""}});
+      {"side ", "when you walk ", ""}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
       {{"and, it's ", "then, ", ",it's then ", ". After that, "}, {"on "}, {"the ", "your "},
-      {"/D "}, {"side ", "when you walk", ""}});
+      {"/D "}, {"side ", "when you walk"}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then, ", ". After that, ", ". ", "and, ", ". Finally, ", ". From there on, "}, {"it will be on your "}, {"/D "}, {"side ", "when you walk", ""}});
+      {{"then, ", ". After that, ", ". ", "and, ", ". Finally, ", ". From there on, "}, {"it will be on your /D "}, {"side ", "when you walk", ""}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then, ", ". After that, ", "and, ", ". Finally, ", ". From there on, "}, {"it's on the "}, {"/D "}, {"there "}});
+      {{"then, ", ". After that, ", "and, ", ". Finally, ", ". From there on, "}, {"it's on the /D there "}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then, ", ". After that, ", "and, ", ". Finally, "}, {"on the "}, {"/D "}, {",you will see "}, {"/X "}});
+      {{"then, ", ". After that, ", "and, ", ". Finally, "}, {"on the /D, you will see /X "}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"then, ", ". After that, ", "and, ", ". Finally, "}, {"you see there "}, {"/X "}});
+      {{"then, ", ". After that, ", "and, ", ". Finally, "}, {"you see there /X "}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
@@ -81,31 +81,31 @@ void Sentences::createEndBegin()
     sentence_t tmp(end_side,
       {{"you will "}, {"see ", "find "},
       {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
-      {"side ", "when you walk ", ""}});
+      {"side ", "when you walk ", ""}, {", straight after /Y, ", ""}});
     end_begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"it will be on your "}, {"/D "}, {"side ", "when you walk", ""}});
+      {{"it will be on your /D "}, {"side ", "when you walk", ""}, {", straight after /Y, ", ""}});
     end_begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"it's on the "}, {"/D "}, {"there "}});
+      {{"it's on the /D there "}, {", straight after /Y, ", ""}});
     end_begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"on the "}, {"/D "}, {"you will see "}, {"/X "}});
+      {{"on the /D you will see /X "}, {", straight after /Y, ", ""}});
     end_begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"you see there "}, {"/X "}});
+      {{"you see there /X "}});
     end_begin_.push_back(tmp);
   }
 
@@ -117,7 +117,7 @@ void Sentences::createEndBegin()
 
   {
     sentence_t tmp(end_here,
-      {{"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
+      {{"it's "}, {"there ", ""}, {"on the /DY side of /Y "}});
     end_begin_.push_back(tmp);
   }
 
@@ -178,25 +178,25 @@ void Sentences::createDuring()
 
   {
     sentence_t tmp(during_turn_continu_corridor,
-      {{"turn "}, {"/D "}, {"at ", "straight after "}, {"/Y "}});
+      {{"turn /D "}, {"at ", "straight after "}, {"/Y "}});
     during_.push_back(tmp);
   }
 
   {
     sentence_t tmp(during_turn_continu_corridor,
-      {{"turn "}, {"/D "}});
+      {{"turn /D "}});
     during_.push_back(tmp);
   }
 
   {
     sentence_t tmp(during_turn,
-      {{"turn "}, {"/D "}});
+      {{"turn /D "}});
     during_.push_back(tmp);
   }
 
   {
     sentence_t tmp(during_turn,
-      {{"you will "}, {"see ", "find "}, {"/Y "}, {"turning right to the "}, {"/D "}});
+      {{"turn /D "}, {"at ", "straight after "}, {"/Y "}});
     during_.push_back(tmp);
   }
 
