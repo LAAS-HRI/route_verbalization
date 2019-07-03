@@ -5,7 +5,7 @@
 #include "semantic_route_description/SemanticRoute.h"
 #include "route_verbalization/VerbalizeRegionRoute.h"
 
-#include "pepper_msg/Say.h"
+//#include "pepper_msg/Say.h"
 
 //roslaunch pepper_bringup pepper_full.launch nao_ip:=mummer.laas.fr roscore_ip:=127.0.0.1 network_interface:=enp0s31f6
 
@@ -14,13 +14,13 @@ ros::NodeHandle* n_;
 void say(std::string text)
 {
   std::cout << "[SAY] " << text << std::endl;
-  ros::ServiceClient client = n_->serviceClient<pepper_msg::Say>("/naoqi_driver/animated_speech/say");
+  /*ros::ServiceClient client = n_->serviceClient<pepper_msg::Say>("/naoqi_driver/animated_speech/say");
 
   pepper_msg::Say srv;
   srv.request.text = text;
 
   if(!client.call(srv))
-    std::cout << "[FAILED SAY]" << std::endl;
+    std::cout << "[FAILED SAY]" << std::endl;*/
 }
 
 void getRoutesRegion(std::vector<std::vector<std::string> >& routes, std::vector<float>& costs, std::string from, std::string to, std::string persona, bool sign)
