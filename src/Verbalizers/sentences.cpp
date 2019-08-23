@@ -133,31 +133,31 @@ void Sentences::createBegin()
   {
     sentence_t tmp(start_corridor,
       {{"just ", ""}, {"go ", "walk ", "go straight "},
-      {"across ", "through ", "on ", "down "}, {"that ", "this "}, {"corridor ", "aisle "}});
+      {"across ", "through ", "on ", "down "}, {"that ", "this "}, {"corridor "}});
     begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(start_corridor,
-      {{"go to this "}, {"corridor ", "aisle "}});
+      {{"go to this "}, {"corridor "}});
     begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(start_end_of_corridor,
-      {{"/X "}, {"is "}, {"just straight ", ""}, {"down "}, {"this ", "that "}, {"corridor ", "aisle "}});
+      {{"/X "}, {"is "}, {"just straight ", ""}, {"down "}, {"this ", "that "}, {"corridor "}});
     begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(start_end_of_corridor,
-      {{"just ", ""}, {"walk ", "go almost "}, {"until the end of "}, {"this ", "that "}, {"corridor ", "aisle "}});
+      {{"just ", ""}, {"walk ", "go almost "}, {"until the end of "}, {"this ", "that "}, {"corridor "}});
     begin_.push_back(tmp);
   }
 
   {
     sentence_t tmp(start_end_of_corridor,
-      {{"/X "}, {"is at the end of "}, {"this ", "that "}, {"corridor ", "aisle "}});
+      {{"/X "}, {"is at the end of "}, {"this ", "that "}, {"corridor "}});
     begin_.push_back(tmp);
   }
 
@@ -172,7 +172,7 @@ void Sentences::createDuring()
 {
   {
     sentence_t tmp(during_end_of_corridor,
-      {{"walk to ", "go almost at ", "walk until "}, {"the "}, {"very ", ""}, {"end of the "}, {"corridor ", "aisle "}});
+      {{"walk to ", "go almost at ", "walk until "}, {"the "}, {"very ", ""}, {"end of the "}, {"corridor "}});
     during_.push_back(tmp);
   }
 
