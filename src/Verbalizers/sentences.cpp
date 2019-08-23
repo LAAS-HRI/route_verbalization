@@ -19,58 +19,58 @@ void Sentences::createEnd()
 {
   {
     sentence_t tmp(end_side,
-      {{"and, ", "then, ", ". ", ". After that ", ". Finally, "}, {"you will "}, {"see ", "find "},
-      {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
+      {{",and ", ",then ", ". ", ". After that ", ". Finally, "}, {"you will "}, {"see ", "find "},
+      {"/X "}, {"on "}, {"your ", "the "}, {"/D "},
       {"side ", "when you walk ", ""}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"and, it's ", "then, ", ",it's then ", ". After that, "}, {"on "}, {"the ", "your "},
+      {{",and /X is ", ",then ", ",/X is then ", ". After that, "}, {"on "}, {"the ", "your "},
       {"/D "}, {"side ", "when you walk"}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then, ", ". After that, ", ". ", "and, ", ". Finally, ", ". From there on, "}, {"it will be on your /D "}, {"side ", "when you walk", ""}, {", straight after /Y ", ""}});
+      {{",then ", ". After that, ", ". ", ",and ", ". Finally, ", ". From there on, "}, {"/X will be on your /D "}, {"side ", "when you walk", ""}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then, ", ". After that, ", "and, ", ". Finally, ", ". From there on, "}, {"it's on the /D there "}, {", straight after /Y ", ""}});
+      {{",then ", ". After that, ", ",and ", ". Finally, ", ". From there on, "}, {"/X is on the /D there "}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_side,
-      {{"then, ", ". After that, ", "and, ", ". Finally, "}, {"on the /D, you will see /X "}, {", straight after /Y ", ""}});
+      {{",then ", ". After that, ", ",and ", ". Finally, "}, {"on the /D, you will see /X "}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"then, ", ". After that, ", "and, ", ". Finally, "}, {"you see there /X "}, {", straight after /Y ", ""}});
+      {{",then ", ". After that, ", ",and ", ". Finally, "}, {"you see there /X "}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"then, ", ". After that, ", "and, ", ". Finally, "}, {"you will find it there "}});
+      {{",then ", ". After that, ", ",and ", ". Finally, "}, {"you will find /X there "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_here,
-      {{"then, ", ". After that, ", "and, ", ". Finally, ", ". From there on, "}, {"it's "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
+      {{",then ", ". After that, ", ",and ", ". Finally, ", ". From there on, "}, {"/X is "}, {"there ", ""}, {"on the "}, {"/DY "}, {"side of "}, {"/Y "}});
     end_.push_back(tmp);
   }
 
   {
     sentence_t tmp(end_in_front,
-      {{"then, ", ". After that, ", "and, ", ". Finally, ", ". From there on, "}, {"you will "}, {"find ", "see "}, {"it ", "/X "}, {"right away "}});
+      {{",then ", ". After that, ", ",and ", ". Finally, ", ". From there on, "}, {"you will "}, {"find ", "see "}, {"/X "}, {"right away "}});
     end_.push_back(tmp);
   }
 }
