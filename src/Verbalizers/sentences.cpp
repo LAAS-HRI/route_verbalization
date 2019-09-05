@@ -46,7 +46,7 @@ void Sentences::createEnd()
 
   {
     sentence_t tmp(end_side,
-      {{",then ", ". After that, ", ",and ", ". Finally, "}, {"on the /D, you will see /X "}, {", straight after /Y ", ""}});
+      {{",then ", ". After that, ", ",and ", ". Finally, "}, {"it is on the /D, you will see /X "}, {", straight after /Y ", ""}});
     end_.push_back(tmp);
   }
 

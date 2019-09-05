@@ -139,15 +139,6 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if(getIndex(corridor.at_left_, from) >= 0)
     getRightLeft(corridor.at_left_, from, right_from, left_from);
 
-  if(getIndex(corridor.at_begin_edge_, to) >= 0)
-    getRightLeft(corridor.at_begin_edge_, to, right_to, left_to);
-  else if(getIndex(corridor.at_end_edge_, to) >= 0)
-    getRightLeft(corridor.at_end_edge_, to, right_to, left_to);
-  else if(getIndex(corridor.at_right_, to) >= 0)
-    getRightLeft(corridor.at_right_, to, right_to, left_to);
-  else if(getIndex(corridor.at_left_, to) >= 0)
-    getRightLeft(corridor.at_left_, to, right_to, left_to);
-
   int from_index, to_index = -1;
   if((to_index = getIndex(corridor.at_begin_edge_, to)) >= 0) //next goal at begin_edge
   {
@@ -260,7 +251,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if((to_index = getIndex(corridor.at_left_, to)) >= 0) //next goal at left
   {
     std::cout << "NEXT GOAL AT LEFT" << std::endl;
-    getRightLeft(corridor.at_left_, to, right_to, left_to);
+    getRightLeft(corridor.at_left_, to, left_to, right_to);
     if((from_index = getIndex(corridor.at_left_, from)) >= 0)
     {
       if(isBefore(corridor.at_left_, from, to_index))
@@ -673,25 +664,27 @@ void PlaceVerbalizer::setReference(sentence_req_t& req, std::string right_place,
   if(std::find(types.begin(), types.end(), "empty_place") != types.end())
     left_place = "";
 
+  std::cout << "R=" << right_place << " <=> " << req.place_ << " <=> " << "L=" << left_place << std::endl;
+
   req.reference_ = "";
   req.refrence_side_ = none_side;
-  
-  if(req.type_ == end_side)
+
+  if((req.type_ == end_side) || (req.type_ == during_turn_continu_corridor) || (req.type_ == during_turn) || (req.type_ == during_interface_side))
   {
-    std::cout << "reference: is an end side" << std::endl;
+    std::cout << "reference: is a side" << std::endl;
     if(req.side_ == right)
-      std::cout << "--> req at right => left place = " << right_place << std::endl;
+      std::cout << "--> req at right => left place = " << left_place << std::endl;
     else
-      std::cout << "--> req at left => right place = " << left_place << std::endl;
-    if((req.side_ == right) && (right_place != ""))
+      std::cout << "--> req at left => right place = " << right_place << std::endl;
+    if((req.side_ == left) && (right_place != ""))
     {
       req.reference_ = right_place;
-      req.refrence_side_ = left;
+      req.refrence_side_ = right;
     }
-    else if((req.side_ == left) && (left_place != ""))
+    else if((req.side_ == right) && (left_place != ""))
     {
       req.reference_ = left_place;
-      req.refrence_side_ = right;
+      req.refrence_side_ = left;
     }
   }
   else if(right_place == "")
@@ -734,5 +727,4 @@ void PlaceVerbalizer::setReference(sentence_req_t& req, std::string right_place,
     }
   }
   std::cout << "setReference = " << req.reference_ << " at " << req.refrence_side_ << std::endl;
-  std::cout << right_place << " <=> " << left_place << std::endl;
 }
