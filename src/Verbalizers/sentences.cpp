@@ -1,7 +1,7 @@
 #include "route_verbalization/Verbalizers/sentences.h"
 #include <random>
 #include <iostream>
-
+ 
 Sentences::Sentences(OntologyManipulator* onto) : onto_(onto)
 {
   createEnd();
