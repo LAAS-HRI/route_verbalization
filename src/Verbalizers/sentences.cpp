@@ -166,6 +166,12 @@ void Sentences::createBegin()
       {{"/I "}});
     begin_.push_back(tmp);
   }
+
+  {
+    sentence_t tmp(start_interface,
+      {{"/I "}, {" that is at the /DY side of /Y"}});
+    begin_.push_back(tmp);
+  }
 }
 
 void Sentences::createDuring()
