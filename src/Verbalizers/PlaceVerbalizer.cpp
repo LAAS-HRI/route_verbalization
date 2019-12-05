@@ -135,7 +135,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if(getIndex(corridor.at_end_edge_, from) >= 0)
     getRightLeft(corridor.at_end_edge_, from, right_from, left_from);
   else if(getIndex(corridor.at_right_, from) >= 0)
-    getRightLeft(corridor.at_right_, from, right_from, left_from);
+    getRightLeft(corridor.at_right_, from, left_from, right_from);
   else if(getIndex(corridor.at_left_, from) >= 0)
     getRightLeft(corridor.at_left_, from, right_from, left_from);
 
@@ -144,7 +144,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if(getIndex(corridor.at_end_edge_, to) >= 0)
     getRightLeft(corridor.at_end_edge_, to, right_to, left_to);
   else if(getIndex(corridor.at_right_, to) >= 0)
-    getRightLeft(corridor.at_right_, to, right_to, left_to);
+    getRightLeft(corridor.at_right_, to, left_to, right_to); //TODO
   else if(getIndex(corridor.at_left_, to) >= 0)
     getRightLeft(corridor.at_left_, to, right_to, left_to);
 
@@ -200,7 +200,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if((to_index = getIndex(corridor.at_right_, to)) >= 0) //next goal at right
   {
     std::cout << "NEXT GOAL AT RIGHT" << std::endl;
-    getRightLeft(corridor.at_right_, to, right_to, left_to);
+    getRightLeft(corridor.at_right_, to, left_to, right_to);
     if((from_index = getIndex(corridor.at_right_, from)) >= 0)
     {
       if(isBefore(corridor.at_right_, from, to_index))
