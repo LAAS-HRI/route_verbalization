@@ -135,7 +135,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if(getIndex(corridor.at_end_edge_, from) >= 0)
     getRightLeft(corridor.at_end_edge_, from, right_from, left_from);
   else if(getIndex(corridor.at_right_, from) >= 0)
-    getRightLeft(corridor.at_right_, from, right_from, left_from);
+    getRightLeft(corridor.at_right_, from, left_from, right_from);
   else if(getIndex(corridor.at_left_, from) >= 0)
     getRightLeft(corridor.at_left_, from, right_from, left_from);
 
@@ -191,7 +191,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if((to_index = getIndex(corridor.at_right_, to)) >= 0) //next goal at right
   {
     std::cout << "NEXT GOAL AT RIGHT" << std::endl;
-    getRightLeft(corridor.at_right_, to, right_to, left_to);
+    getRightLeft(corridor.at_right_, to, left_to, right_to);
     if((from_index = getIndex(corridor.at_right_, from)) >= 0)
     {
       if(isBefore(corridor.at_right_, from, to_index))
@@ -251,7 +251,7 @@ std::vector<sentence_req_t> PlaceVerbalizer::getDirectionCorridor(std::string& f
   else if((to_index = getIndex(corridor.at_left_, to)) >= 0) //next goal at left
   {
     std::cout << "NEXT GOAL AT LEFT" << std::endl;
-    getRightLeft(corridor.at_left_, to, left_to, right_to);
+    getRightLeft(corridor.at_left_, to, right_to, left_to);
     if((from_index = getIndex(corridor.at_left_, from)) >= 0)
     {
       if(isBefore(corridor.at_left_, from, to_index))
@@ -673,18 +673,18 @@ void PlaceVerbalizer::setReference(sentence_req_t& req, std::string right_place,
   {
     std::cout << "reference: is a side" << std::endl;
     if(req.side_ == right)
-      std::cout << "--> req at right => left place = " << left_place << std::endl;
+      std::cout << "--> req at right => left place = " << right_place << std::endl;
     else
-      std::cout << "--> req at left => right place = " << right_place << std::endl;
-    if((req.side_ == left) && (right_place != ""))
+      std::cout << "--> req at left => right place = " << left_place << std::endl;
+    if((req.side_ == right) && (right_place != ""))
     {
       req.reference_ = right_place;
-      req.refrence_side_ = right;
+      req.refrence_side_ = left;
     }
-    else if((req.side_ == right) && (left_place != ""))
+    else if((req.side_ == left) && (left_place != ""))
     {
       req.reference_ = left_place;
-      req.refrence_side_ = left;
+      req.refrence_side_ = right;
     }
   }
   else if(right_place == "")
