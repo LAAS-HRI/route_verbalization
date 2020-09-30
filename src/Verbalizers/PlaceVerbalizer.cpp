@@ -51,9 +51,9 @@ bool PlaceVerbalizer::verbalizePlaceRoute(std::vector<std::string> route, std::s
         std::vector<sentence_req_t> req = getDirection(route[i - 1], route[i], route[i + 1], from_current, step, nb_steps);
         for(size_t seq = 0; seq < req.size(); seq++)
         {
-          if((req.size() > 1) && (seq == 0) && (step > 1))
+          /*if((req.size() > 1) && (seq == 0) && (step > 1))
             text += ",and ";
-          else if((step > 1) && (step < nb_steps))
+          else */if((step > 1) && (step < nb_steps))
           {
             text += sentences.getPunctuation();
             std::cout << "ponctuation" << std::endl;

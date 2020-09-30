@@ -57,6 +57,8 @@ void getRoutesPlace(std::vector<std::vector<std::string> >& routes, std::vector<
     for(size_t i = 0; i < srv.response.routes.size(); i++)
       routes.push_back(srv.response.routes[i].route);
   }
+  else
+    std::cout << "fail to call" << std::endl;
 }
 
 std::vector<std::string> getRoute(std::string from, std::string to, std::string persona, bool sign, bool region = true)
@@ -68,7 +70,7 @@ std::vector<std::string> getRoute(std::string from, std::string to, std::string 
   else
     getRoutesPlace(routes, costs, from, to, persona, sign);
 
-
+  std::cout << "getRoute returned " << routes.size() << " routes" << std::endl;
   double min_cost = 1000;
   int index = -1;
   for(size_t i = 0; i < costs.size(); i++)
@@ -110,10 +112,12 @@ bool regionHandle(semantic_route_description::SemanticRoute::Request  &req,
   return true;
 }
 
-bool placeHandle(semantic_route_description::SemanticRoute::Request  &req,
-                  semantic_route_description::SemanticRoute::Response  &res)
+bool placeHandle(semantic_route_description::SemanticRoute::Request &req,
+                  semantic_route_description::SemanticRoute::Response &res)
 {
+  std::cout << "request path from " << req.from << " to " << req.to << std::endl;
   std::vector<std::string> route = getRoute(req.from, req.to, req.persona, req.signpost, false);
+  std::cout << "route of size " << route.size() << std::endl;
 
   ros::ServiceClient client = n_->serviceClient<route_verbalization::VerbalizeRegionRoute>("route_verbalization/verbalizePlace");
 

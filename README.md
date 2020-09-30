@@ -15,7 +15,7 @@ $ rosrun route_verbalization verbalize_route
 It will provide to services :
  - route_verbalization/verbalizeRegion
  - route_verbalization/verbalizePlace
- 
+
 ### Expected results
 
 **Route :** robot_infodesk -- os_exp_1 -- zizzi
@@ -33,21 +33,21 @@ you see there zizzi
  OR
  go straight down that aisle and turn left and you will find gina on your left when you walk
  ```
- 
+
 **Route :** robot_infodesk -- os_exp_1 -- door_h20 -- os_hall -- door_A
  ```
-go through the door . Finally, you will find door a on the right when you walk 
+go through the door . Finally, you will find door a on the right when you walk
 OR
-go through the door . you will find it on the right when you walk 
+go through the door . you will find it on the right when you walk
 OR
 go through the door . Finally, it will be on your right when you walk
 ```
 
 **Route :** robot_infodesk -- os_exp_1 -- door_h20 -- os_hall -- stairs_1 -- ff_corridor_3 -- ff_c34_intersection -- ff_corridor_4 -- burger_king
 ```
-go through the door , and then, take the stair at your left and turn left , then go almost at the very end of the corridor and turn left . Finally, you will see it on the right side 
+go through the door , and then, take the stair at your left and turn left , then go almost at the very end of the corridor and turn left . Finally, you will see it on the right side
 OR
-go through the door . take the stair at the left and turn left . go almost at the very end of the aisle and turn left . you will find it on the right side 
+go through the door . take the stair at the left and turn left . go almost at the very end of the aisle and turn left . you will find it on the right side
 ```
 
 ### Test
@@ -72,7 +72,7 @@ To check the consistency of your semantic description of the environment, you ca
 $ rosrun route_verbalization draw_route
 ```
 
-[Ontologenius-Dependency-Image]: https://img.shields.io/badge/dependencies-ontoloGenius-1eb0fc.svg
+[Ontologenius-Dependency-Image]: https://img.shields.io/badge/dependencies-ontologenius-1eb0fc.svg
 [Ontologenius-Dependency-Url]: https://github.com/sarthou/ontologenius
 [Description-Dependency-Image]: https://img.shields.io/badge/dependencies-semantic_route_description-1eb0fc.svg
 [Description-Dependency-Url]: https://github.com/LAAS-HRI/semantic_route_description
