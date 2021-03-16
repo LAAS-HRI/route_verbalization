@@ -14,7 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   semantic_route_description
 )
-find_package(ontologenius 0.1.3 REQUIRED)
+find_package(ontologenius 0.2.7 REQUIRED)
 find_package(OpenCV REQUIRED)
 
 ## System dependencies are found with CMake's conventions
