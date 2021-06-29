@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "ontoloGenius/utility/OntologyManipulator.h"
+#include "ontologenius/OntologyManipulator.h"
 
 enum sentences_type
 {
