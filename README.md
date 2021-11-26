@@ -18,14 +18,14 @@ It will provide to services :
  
 ### Expected results
 
-**Route :** robot_infodesk -- os_exp_1 -- zizzi
+**Route :** pepper_infodesk -- os_exp_1 -- zizzi
 ```
 you will find it there
 OR
 you see there zizzi
 ```
 
-**Route :** robot_infodesk -- os_exp_1 -- gf_ww1_os1_intersection -- gf_walkway_1 -- gina
+**Route :** pepper_infodesk -- os_exp_1 -- gf_ww1_os1_intersection -- gf_walkway_1 -- gina
  ```
  go straight on that aisle and turn left . Finally, you will find it on the left
  OR
@@ -34,7 +34,7 @@ you see there zizzi
  go straight down that aisle and turn left and you will find gina on your left when you walk
  ```
  
-**Route :** robot_infodesk -- os_exp_1 -- door_h20 -- os_hall -- door_A
+**Route :** pepper_infodesk -- os_exp_1 -- door_h20 -- os_hall -- door_A
  ```
 go through the door . Finally, you will find door a on the right when you walk 
 OR
@@ -43,7 +43,7 @@ OR
 go through the door . Finally, it will be on your right when you walk
 ```
 
-**Route :** robot_infodesk -- os_exp_1 -- door_h20 -- os_hall -- stairs_1 -- ff_corridor_3 -- ff_c34_intersection -- ff_corridor_4 -- burger_king
+**Route :** pepper_infodesk -- os_exp_1 -- door_h20 -- os_hall -- stairs_1 -- ff_corridor_3 -- ff_c34_intersection -- ff_corridor_4 -- burger_king
 ```
 go through the door , and then, take the stair at your left and turn left , then go almost at the very end of the corridor and turn left . Finally, you will see it on the right side 
 OR
