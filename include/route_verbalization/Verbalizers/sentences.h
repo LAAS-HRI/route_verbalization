@@ -88,13 +88,13 @@ struct sentence_req_t
 class Sentences
 {
 public:
-  Sentences(OntologyManipulator* onto);
+  Sentences(onto::OntologyManipulator* onto);
 
   std::string getSentence(sentence_req_t req, bool begin = false);
   std::string getPunctuation();
 
 private:
-  OntologyManipulator* onto_;
+  onto::OntologyManipulator* onto_;
   std::vector<sentence_t> end_;
   std::vector<sentence_t> end_begin_;
   std::vector<sentence_t> begin_;

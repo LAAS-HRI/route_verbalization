@@ -2,7 +2,7 @@
 #include <random>
 #include <iostream>
  
-Sentences::Sentences(OntologyManipulator* onto) : onto_(onto)
+Sentences::Sentences(onto::OntologyManipulator* onto) : onto_(onto)
 {
   createEnd();
   createEndBegin();

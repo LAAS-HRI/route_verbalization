@@ -13,7 +13,7 @@
 class PlaceVerbalizer
 {
 public:
-  PlaceVerbalizer(OntologyManipulator* onto);
+  PlaceVerbalizer(onto::OntologyManipulator* onto);
   ~PlaceVerbalizer() {}
 
   void init(ros::NodeHandle* n);
@@ -21,7 +21,7 @@ public:
   bool verbalizePlaceRoute(std::vector<std::string> route, std::string start_place, std::string goal_shop, std::string& text);
 
 private:
-  OntologyManipulator* onto_;
+  onto::OntologyManipulator* onto_;
   Sentences sentences;
 
   std::vector<corridor_t> corridors_;

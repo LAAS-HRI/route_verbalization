@@ -50,7 +50,7 @@ public:
 
 private:
   ros::NodeHandle* n_;
-  OntologyManipulator onto_;
+  onto::OntologyManipulator onto_;
 
   IplImage* image;
   std::vector<drawCorridor_t> corridors_;

@@ -1,6 +1,6 @@
 #include "route_verbalization/Verbalizers/RegionVerbalizer.h"
 
-RegionVerbalizer::RegionVerbalizer(OntologyManipulator* onto) : onto_(onto)
+RegionVerbalizer::RegionVerbalizer(onto::OntologyManipulator* onto) : onto_(onto)
 {
   initWordMaps();
 }

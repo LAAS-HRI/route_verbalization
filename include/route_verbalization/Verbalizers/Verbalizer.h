@@ -27,7 +27,7 @@ public:
 
 private:
   ros::NodeHandle* n_;
-  OntologyManipulator onto_;
+  onto::OntologyManipulator onto_;
   RegionVerbalizer region_verbalizer;
   PlaceVerbalizer place_verbalizer;
 };

@@ -10,13 +10,13 @@
 class RegionVerbalizer
 {
 public:
-  RegionVerbalizer(OntologyManipulator* onto);
+  RegionVerbalizer(onto::OntologyManipulator* onto);
   ~RegionVerbalizer() {}
 
   bool verbalizeRegionRoute(std::vector<std::string> route, std::string start_place, std::string& text);
 
 private:
-  OntologyManipulator* onto_;
+  onto::OntologyManipulator* onto_;
 
   std::map<std::string, std::string> word_map;
 

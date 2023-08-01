@@ -38,7 +38,7 @@ public:
 
 private:
   ros::NodeHandle* n_;
-  OntologyManipulator onto_;
+  onto::OntologyManipulator onto_;
 
   std::vector<corridor_t> corridors_;
   std::vector<openspace_t> openspaces_;

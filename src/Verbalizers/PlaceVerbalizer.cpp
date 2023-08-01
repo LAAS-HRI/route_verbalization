@@ -3,7 +3,7 @@
 #include <iostream>
 #include <random>
 
-PlaceVerbalizer::PlaceVerbalizer(OntologyManipulator* onto) : onto_(onto), sentences(onto_)
+PlaceVerbalizer::PlaceVerbalizer(onto::OntologyManipulator* onto) : onto_(onto), sentences(onto_)
 {
   word_map["elevator"] = "take the ";
   word_map["stair"] = "take the ";
