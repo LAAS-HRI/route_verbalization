@@ -13,9 +13,9 @@ PlaceVerbalizer::PlaceVerbalizer(onto::OntologyManipulator* onto) : onto_(onto),
   word_map["pathIntersection"] = "take the ";
 }
 
-void PlaceVerbalizer::init(ros::NodeHandle* n)
+void PlaceVerbalizer::init()
 {
-  MapReader reader(n);
+  MapReader reader;
   reader.getMap();
 
   corridors_ = reader.corridors();

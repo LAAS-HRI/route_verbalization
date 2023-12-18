@@ -10,10 +10,10 @@
 class Verbalizer
 {
 public:
-  Verbalizer(ros::NodeHandle* n) : n_(n), onto_(n_), region_verbalizer(&onto_), place_verbalizer(&onto_) {}
+  Verbalizer() : region_verbalizer(&onto_), place_verbalizer(&onto_) {}
   ~Verbalizer() {}
 
-  void init() {place_verbalizer.init(n_);}
+  void init() {place_verbalizer.init();}
 
   bool regionRoute(std::vector<std::string> route, std::string start_place, std::string& text)
   {
@@ -26,7 +26,6 @@ public:
   }
 
 private:
-  ros::NodeHandle* n_;
   onto::OntologyManipulator onto_;
   RegionVerbalizer region_verbalizer;
   PlaceVerbalizer place_verbalizer;

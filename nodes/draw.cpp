@@ -20,9 +20,9 @@ int main(int argc, char** argv)
 
   ROS_DEBUG("semantic_route_drawer ready");
 
-  MapReader reader(&n);
+  MapReader reader;
   reader.getMap();
-  MapDrawer drawer(&n);
+  MapDrawer drawer;
   drawer.draw(reader.corridors());
   drawer.draw(reader.openspaces());
 

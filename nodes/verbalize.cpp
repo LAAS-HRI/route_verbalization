@@ -42,7 +42,7 @@ int main(int argc, char**argv)
   ros::NodeHandle n;
   n_ = &n;
 
-  verbalizer = new Verbalizer(&n);
+  verbalizer = new Verbalizer;
   verbalizer->init();
 
   ros::ServiceServer region_route_service = n.advertiseService("route_verbalization/verbalizeRegion", regionHandle);

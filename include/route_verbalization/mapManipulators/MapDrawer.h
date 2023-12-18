@@ -42,14 +42,13 @@ struct drawCorridor_t
 class MapDrawer
 {
 public:
-  MapDrawer(ros::NodeHandle* n) : onto_(n) { n_ = n; }
+  MapDrawer() {}
   ~MapDrawer(){}
 
   void draw(std::vector<corridor_t> corridors);
   void draw(std::vector<openspace_t> openspaces);
 
 private:
-  ros::NodeHandle* n_;
   onto::OntologyManipulator onto_;
 
   IplImage* image;

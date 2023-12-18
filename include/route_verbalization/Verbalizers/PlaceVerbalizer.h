@@ -16,7 +16,7 @@ public:
   PlaceVerbalizer(onto::OntologyManipulator* onto);
   ~PlaceVerbalizer() {}
 
-  void init(ros::NodeHandle* n);
+  void init();
 
   bool verbalizePlaceRoute(std::vector<std::string> route, std::string start_place, std::string goal_shop, std::string& text);
 

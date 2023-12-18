@@ -28,7 +28,7 @@ struct openspace_t
 class MapReader
 {
 public:
-  MapReader(ros::NodeHandle* n) : onto_(n) { n_ = n; onto_.close(); }
+  MapReader() { onto_.close(); }
   ~MapReader() {}
 
   void getMap();
@@ -37,7 +37,6 @@ public:
   std::vector<openspace_t> openspaces() {return openspaces_; }
 
 private:
-  ros::NodeHandle* n_;
   onto::OntologyManipulator onto_;
 
   std::vector<corridor_t> corridors_;
